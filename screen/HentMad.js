@@ -61,7 +61,7 @@ export default FoodList;
 const styles = StyleSheet.create({
     container: {
       justifyContent: 'center',
-      marginTop: 35,
+      marginTop: 40,
       padding: 5
     },
     foodItem: {
