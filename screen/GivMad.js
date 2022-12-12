@@ -18,6 +18,7 @@ import { db } from '../firebase';
 const GivFood = ({navigation, route}) => {
 
   const initialState = {
+    Id_: auth.currentUser?.uid,
     Hvem: '',
     Hvor: '',
     Hvad: '',
@@ -28,7 +29,7 @@ const GivFood = ({navigation, route}) => {
 
   const [newFood, setNewFood] = useState(initialState);
 
-  /*Returnere true, hvis vi er på edit car*/
+  /*Returnere true, hvis vi er på edit food*/
   const isEditFood = route.name === "Edit Food";
 
   useEffect(() => {
@@ -48,9 +49,9 @@ const GivFood = ({navigation, route}) => {
 
   const handleSave = () => {
 
-    const { Hvem, Hvor, Hvad, Info, Madtype, Foto} = newFood;
+    const { Id_, Hvem, Hvor, Hvad, Info, Madtype, Foto} = newFood;
 
-    if(Hvem.length === 0, Hvor.length === 0, Hvad.length === 0, Info.length === 0, Madtype.length === 0, Foto.length === 0){
+    if(Id_ === auth.currentUser?.uid,Hvem.length === 0, Hvor.length === 0, Hvad.length === 0, Info.length === 0, Madtype.length === 0, Foto.length === 0){
       return Alert.alert('Alle felter skal udfyldes')
     }
     if(isEditFood){
@@ -59,7 +60,7 @@ const GivFood = ({navigation, route}) => {
         firebase
           .database()
           .ref(`/Food/${id}`)
-          .update({Hvem, Hvor, Hvad, Info, Madtype, Foto});
+          .update({Id_, Hvem, Hvor, Hvad, Info, Madtype, Foto});
         Alert.alert('Din info er blevet opdateret');
         const food = [id, newFood];
         navigation.navigate('Food Details', {food});
@@ -71,7 +72,7 @@ const GivFood = ({navigation, route}) => {
         firebase
           .database()
           .ref('/Food/')
-          .push({Hvem, Hvor, Hvad, Info, Madtype, Foto})
+          .push({Id_, Hvem, Hvor, Hvad, Info, Madtype, Foto,})
         Alert.alert(`Saved`);
         setNewFood(initialState)
       } catch(error) {
@@ -96,7 +97,7 @@ const GivFood = ({navigation, route}) => {
                     )
                 })
             }
-            {/*Hvis vi er inde på edit car, vis save changes i stedet for add car*/}
+            {/*Hvis vi er inde på edit food, vis save changes i stedet for add car*/}
             <Button title={ isEditFood ? "Save changes" : "Add Food"} onPress={() => handleSave()} />
         </ScrollView>
     </SafeAreaView>
