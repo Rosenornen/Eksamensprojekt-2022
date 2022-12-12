@@ -34,7 +34,7 @@ const Login = ({navigation}) => {
             alert(err)
         })
     }
-
+/* Kunne indsætte Confirm password hvis tid */
   return (
     <>
     <StatusBar style ="light"/>

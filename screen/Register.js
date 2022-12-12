@@ -91,8 +91,6 @@ const ImageBackground = styled.ImageBackground`
  
 const Register = ({navigation}) => {
 
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
@@ -108,39 +106,8 @@ const Register = ({navigation}) => {
       .catch(error => alert(error.message))
    }
 
-   /*En anden form for oprettelse funktion jeg har tidligere anvendt, kan ikke finde ud af hvilken jeg bedst kan li*/
-/*
-    const register = () => {
-      setLoading(true);
-      if (!email || !password || !firstName || !lastName) {
-          alert("Alle felter skal udfyldes");
-          setPassword("");
-          setEmail("");
-          setLoading(false);
-          return;
-      }
-
-      auth.createUserWithEmailAndPassword(email, password).then(authUser => {
-          db.collection('users').doc(email).set({
-              firstName,
-              lastName,
-              email,
-          }).then(() => {
-              navigation.replace("Login");
-              setPassword('');
-              setEmail("");
-              setLoading(false);
-          })
-      }).catch(err => {
-          alert(err)
-          setPassword('');
-          setEmail("");
-          setLoading(false);
-      })
-  }*/
-
-  /* her bliver alle de konstanter jeg styled for oven anvendt*/
-  return (
+/* Kunne indsætte Confirm password hvis tid */
+return (
     <>
     <StatusBar style ="light"/>
       <Container>
