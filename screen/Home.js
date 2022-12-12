@@ -3,16 +3,20 @@ import React from 'react'
 import { auth } from '../firebase';
 import { db } from '../firebase';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Header } from "../components/Header"
+import { useNavigation } from '@react-navigation/native'
 
 export default function Home() {  
   
+  const navigation = useNavigation()
+
     return (
       <LinearGradient
       colors={['#fce24e', 'white']}
       style={styles.LinearGradient}
       start={{ x: 1, y: 0 }}
       end={{ x: 1, y: 1 }}>
-         <Text>DET HER ER DASHBOARD</Text>
+               <Text>DET HER ER DASHBOARD</Text>
       </LinearGradient>
     )
   }
