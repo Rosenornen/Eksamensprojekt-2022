@@ -2,6 +2,7 @@ import * as React from 'react';
 import {View, Text, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
 import firebase from 'firebase';
 import {useEffect, useState} from "react";
+import { LinearGradient } from 'expo-linear-gradient';
 
 const FoodList = ({navigation}) => {
 
@@ -34,6 +35,12 @@ const FoodList = ({navigation}) => {
     const foodKeys = Object.keys(foods);
 
     return (
+      <LinearGradient
+        colors={['#fce24e', 'white']}
+        style={styles.LinearGradient}
+        start={{ x: 1, y: 0 }}
+        end={{ x: 1, y: 1 }}>
+  
         <View style = {styles.container}>
           <Text></Text>
            <FlatList
@@ -51,6 +58,7 @@ const FoodList = ({navigation}) => {
             }}
         />
         </View>
+        </LinearGradient>
        
     );
 }
@@ -59,6 +67,11 @@ export default FoodList;
 
 
 const styles = StyleSheet.create({
+  LinearGradient: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
     container: {
       justifyContent: 'center',
       marginTop: 40,

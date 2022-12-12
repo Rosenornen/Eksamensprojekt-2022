@@ -1,44 +1,26 @@
-
 import {StyleSheet, Text, View, Button} from 'react-native'
 import React from 'react'
-import Baggrund from "../assets/Baggrundmindre.png"
-import styled from 'styled-components/native'
-import { StatusBar } from 'expo-status-bar';
-import { useNavigation } from '@react-navigation/native'
 import { auth } from '../firebase';
 import { db } from '../firebase';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { LinearGradient } from 'expo-linear-gradient';
 
-
-
-export default function Home() {
-
-    const navigation = useNavigation()
+export default function Home() {  
   
-  
-  /* Liiidt for simple logud, men det var nødvendigt for at teste */
     return (
-      <>
-      <StatusBar style ="light"/>
-         <ImageBackground source={Baggrund} resizeMode="stretch"></ImageBackground>
+      <LinearGradient
+      colors={['#fce24e', 'white']}
+      style={styles.LinearGradient}
+      start={{ x: 1, y: 0 }}
+      end={{ x: 1, y: 1 }}>
          <Text>DET HER ER DASHBOARD</Text>
-        </>
+      </LinearGradient>
     )
   }
   
-  const ImageBackground = styled.ImageBackground`
-      flex: 1;
-      height: 100%
-  `
-  
   const styles = StyleSheet.create({
-      logud:{
-        alignItems: 'center',
-        justifyContent: "center",
-      },
-      userDetails:{
-        alignSelf: "center",
-        justifyContent: "center",
-      }
-  
+    LinearGradient: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    }
   })

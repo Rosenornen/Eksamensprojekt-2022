@@ -1,15 +1,13 @@
 
 import {StyleSheet, Text, View, Button} from 'react-native'
 import React from 'react'
-import Baggrund from "../assets/Baggrundmindre.png"
-import styled from 'styled-components/native'
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native'
 import { auth } from '../firebase';
+import { LinearGradient } from 'expo-linear-gradient';
 
 
-
-export default function Home() {
+export default function Settings() {
 
   const handleSignOut = () => {
     auth
@@ -26,31 +24,33 @@ export default function Home() {
     return (
       <>
       <StatusBar style ="light"/>
-         <ImageBackground source={Baggrund} resizeMode="stretch"></ImageBackground>
-         <View style={styles.Container}>
+      <LinearGradient
+        colors={['#fce24e', 'white']}
+        style={styles.LinearGradient}
+        start={{ x: 1, y: 0 }}
+        end={{ x: 1, y: 1 }}>
           <Text style={styles.userDetails}> Bruger "{auth.currentUser?.uid}" er logget ind</Text>
           <Button style={styles.logud} title='Tryk for at logge ud' onPress={handleSignOut}></Button>
-          </View>
-        </>
+      </LinearGradient>
+      </>
     )
   }
-  
-const ImageBackground = styled.ImageBackground`
-  flex: 1;
-  height: 100%
-`
 
 const styles = StyleSheet.create({
-  Container:{
-    backgroundColor: "transparent",
+  LinearGradient: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   logud:{
-    alignItems: 'center',
-    justifyContent: "center",
+    
   },
   userDetails:{
-    alignSelf: "center",
-    justifyContent: "center",
+    fontSize: 11,
+    lineHeight: 10,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'black',
   }
 
 })

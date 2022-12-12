@@ -13,6 +13,7 @@ import {useEffect, useState} from "react";
 import firebase from 'firebase';
 import React from 'react'
 import { auth } from '../firebase';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const GivFood = ({navigation, route}) => {
 
@@ -80,7 +81,11 @@ const GivFood = ({navigation, route}) => {
     }
   }
   return (
-    <SafeAreaView style={styles.container}>
+      <LinearGradient
+        colors={['#fce24e', 'white']}
+        style={styles.LinearGradient}
+        start={{ x: 1, y: 0 }}
+        end={{ x: 1, y: 1 }}>
         <ScrollView>
             {
                 Object.keys(initialState).map((key,index) =>{
@@ -99,16 +104,18 @@ const GivFood = ({navigation, route}) => {
             {/*Hvis vi er inde på edit food, vis save changes i stedet for add car*/}
             <Button title={ isEditFood ? "Save changes" : "Add Food"} onPress={() => handleSave()} />
         </ScrollView>
-    </SafeAreaView>
+        </LinearGradient>
 );
 }
 
 export default GivFood;
 
 const styles = StyleSheet.create({
-container: {
-    flex: 1,
-    justifyContent: 'center'
+LinearGradient: {
+  flex: 1,
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: 100
 },
 row: {
     flexDirection: 'row',
@@ -121,7 +128,9 @@ label: {
 },
 input: {
     borderWidth: 1,
-    padding:5,
-    flex: 1
+    padding: 12,
+    flex: 1,
+    margin: -2,
+    
 },
 });

@@ -25,10 +25,11 @@ export default function App() {
         inactiveTintColor: "orange",
         swipeEnabled: true,
         style:{
-          backgroundColor: 'transparent',
+          tabBarActiveBackgroundColor: 'transparent',
+          tabBarInactiveBackgroundColor: 'transparent',
           position: 'absolute',
           borderTopWidth: 0,
-         elevation: 0,
+          elevation: 0,
         }
       }}
       screenOptions={{
