@@ -6,8 +6,6 @@ import styled from 'styled-components/native'
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native'
 import { auth } from '../firebase';
-import { db } from '../firebase';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 

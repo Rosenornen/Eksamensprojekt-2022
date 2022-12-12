@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { StatusBar } from 'expo-status-bar';
-import { Dimensions, Text, KeyboardAvoidingView, Platform } from 'react-native'
 import styled from 'styled-components/native'
 import Baggrund from "../assets/BaggrundLogin_Register.png"
 import { auth } from '../firebase';
