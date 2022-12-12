@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { StatusBar } from 'expo-status-bar';
 import { Dimensions, Text, KeyboardAvoidingView, Platform } from 'react-native'
 import styled from 'styled-components/native'
-import Baggrund from "../assets/Backgroundlogin.png"
+import Baggrund from "../assets/BaggrundLogin_Register.png"
 import { auth } from '../firebase';
 
 
@@ -130,7 +130,7 @@ justify-content: center;
 `
 
 const Overlay = styled.View`
-    background-color: 'rgba(0,0,0,0.5)';
+    background-color: 'rgba(0,0,0,0.1)';
     flex: 1;
 `
 

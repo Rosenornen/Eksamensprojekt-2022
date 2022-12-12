@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { StatusBar } from 'expo-status-bar';
 import { Dimensions, Text, KeyboardAvoidingView, Platform } from 'react-native'
 import styled from 'styled-components/native'
-import Baggrund from "../assets/Backgroundlogin.png"
+import Baggrund from "../assets/BaggrundLogin_Register.png"
 import { db, auth } from '../firebase';
 
 
@@ -62,7 +62,7 @@ font-size: 30px;
 font-weight: bold;
 color: white;
 margin: 10px;
-text-align: left;
+text-align: center;
 `
 
 const NewToFoodBeeTextWrapper = styled.TouchableOpacity`
@@ -79,40 +79,13 @@ justify-content: center;
 `
 
 const Overlay = styled.View`
-    background-color: 'rgba(0,0,0,0.5)';
+    background-color: 'rgba(0,0,0,0.1)';
     flex: 1;
 `
 
 const ImageBackground = styled.ImageBackground`
     flex: 1;
     height: 1000px
-`
-
-const HalfInput = styled.TextInput`
-  width: 45,8%;
-  height: 50px;
-  margin-right: 15px
-  border: none;
-  padding: 10px;
-  border-radius: 15px;
-  background-color: #333333;
-  color: white;
-  margin-top: 10px;
-  &:focus {
-    background-color: #454545
-  }
-`
-const HalfInputWrapper = styled.View`
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    
-`
-
-const InputWrapper = styled.View`
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
 `
 
  
@@ -176,12 +149,6 @@ const Register = ({navigation}) => {
               <FormWrapper>
                 <Form>
                   <SignInText> Opret dig her</SignInText>
-                  <InputWrapper> 
-                    <HalfInputWrapper>
-                    <HalfInput placeholder="Deres Fornavn" placeholderTextColor="grey" value={firstName} onChangeText={text => setFirstName(text)}/>
-                    <HalfInput placeholder="Deres Efternavn" placeholderTextColor="grey" value={lastName} onChangeText={text => setLastName(text)}/>
-                    </HalfInputWrapper>
-                  </InputWrapper>
                   <Input placeholder="Indtast din Email" placeholderTextColor="grey" value={email} onChangeText={text => setEmail(text)}/>
                   <Input placeholder="Indtast dit password" placeholderTextColor="grey" secureTextEntry value={password} onChangeText={text => setPassword(text)}/>
                   <SubmitForm activeOpacity ={0.5} onPress={handleSignUp} disabled={loading}><ButtonText>{loading? "Loading..." : "Opret dig"}</ButtonText></SubmitForm>
