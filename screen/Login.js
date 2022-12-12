@@ -6,6 +6,57 @@ import Baggrund from "../assets/Backgroundlogin.png"
 import { auth } from '../firebase';
 
 
+const Login = ({navigation}) => {
+
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [loading, setLoading] = useState(false)
+
+    const login = () => {
+        setLoading(true);
+        if(!email || !password) {
+            alert("Alle felter skal udfyldes");
+            setPassword("");
+            setEmail("");
+            setLoading(false)
+            return;
+        }
+
+        /*Her sender jeg brugeren videre til min bottomstack screen, altså min tab-navigator for at de kan anvende denne til at bruge appen bagefter.*/
+
+        auth.signInWithEmailAndPassword(email,password).then(authUser => {
+            navigation.replace("BottomStack");
+            setPassword("");
+            setEmail("");
+            setLoading(false)
+        }).catch(err =>{
+            setLoading(false);
+            alert(err)
+        })
+    }
+
+  return (
+    <>
+    <StatusBar style ="light"/>
+      <Container>
+       <ImageBackground source={Baggrund} resizeMode="cover">
+            <Overlay>
+              <FormWrapper>
+                <Form>
+                  <SignInText> Log Ind her</SignInText>
+                  <Input placeholder="Indtast din Email" placeholderTextColor="grey" value={email} onChangeText={text => setEmail(text)}/>
+                  <Input placeholder="Indtast dit password" placeholderTextColor="grey" secureTextEntry value={password} onChangeText={text => setPassword(text)}/>
+                  <SubmitForm activeOpacity ={0.5} onPress={login} disabled={loading}><ButtonText>{loading? "Loading..." : "Log Ind"}</ButtonText></SubmitForm>
+                  <NewToFoodBeeTextWrapper activeOpacity={0.5} onPress={() => navigation.navigate("Register")}><NewToFoodBee>Nyt medlem af FoodBee ? Opret dig</NewToFoodBee></NewToFoodBeeTextWrapper>
+                </Form>
+              </FormWrapper>
+            </Overlay>
+         </ImageBackground>
+        </Container>
+    </>
+  )
+}
+
 
 const Container = styled.ScrollView`
 	flex: 1;
@@ -88,58 +139,6 @@ const ImageBackground = styled.ImageBackground`
     height: 1000px
 `
 
-
- 
-const Login = ({navigation}) => {
-
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [loading, setLoading] = useState(false)
-
-    const login = () => {
-        setLoading(true);
-        if(!email || !password) {
-            alert("Alle felter skal udfyldes");
-            setPassword("");
-            setEmail("");
-            setLoading(false)
-            return;
-        }
-
-        /*Her sender jeg brugeren videre til min bottomstack screen, altså min tab-navigator for at de kan anvende denne til at bruge appen bagefter.*/
-
-        auth.signInWithEmailAndPassword(email,password).then(authUser => {
-            navigation.replace("BottomStack");
-            setPassword("");
-            setEmail("");
-            setLoading(false)
-        }).catch(err =>{
-            setLoading(false);
-            alert(err)
-        })
-    }
-
-  return (
-    <>
-    <StatusBar style ="light"/>
-      <Container>
-       <ImageBackground source={Baggrund} resizeMode="cover">
-            <Overlay>
-              <FormWrapper>
-                <Form>
-                  <SignInText> Log Ind her</SignInText>
-                  <Input placeholder="Indtast din Email" placeholderTextColor="grey" value={email} onChangeText={text => setEmail(text)}/>
-                  <Input placeholder="Indtast dit password" placeholderTextColor="grey" secureTextEntry value={password} onChangeText={text => setPassword(text)}/>
-                  <SubmitForm activeOpacity ={0.5} onPress={login} disabled={loading}><ButtonText>{loading? "Loading..." : "Log Ind"}</ButtonText></SubmitForm>
-                  <NewToFoodBeeTextWrapper activeOpacity={0.5} onPress={() => navigation.navigate("Register")}><NewToFoodBee>Nyt medlem af FoodBee ? Opret dig</NewToFoodBee></NewToFoodBeeTextWrapper>
-                </Form>
-              </FormWrapper>
-            </Overlay>
-         </ImageBackground>
-        </Container>
-    </>
-  )
-}
 
 export default Login
 
