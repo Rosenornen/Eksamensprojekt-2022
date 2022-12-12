@@ -86,7 +86,7 @@ const GivFood = ({navigation, route}) => {
         style={styles.LinearGradient}
         start={{ x: 1, y: 0 }}
         end={{ x: 1, y: 1 }}>
-        <ScrollView>
+        <ScrollView style = {styles.container}>
             {
                 Object.keys(initialState).map((key,index) =>{
                     return(
@@ -113,14 +113,16 @@ export default GivFood;
 const styles = StyleSheet.create({
 LinearGradient: {
   flex: 1,
-  alignItems: 'center',
   justifyContent: 'center',
-  padding: 100
+  padding: 10
+},
+container: {
+  marginTop: 50
 },
 row: {
     flexDirection: 'row',
     height: 30,
-    margin: 10,
+    margin: 15
 },
 label: {
     fontWeight: 'bold',
@@ -130,7 +132,7 @@ input: {
     borderWidth: 1,
     padding: 12,
     flex: 1,
-    margin: -2,
+    margin: -5,
     
 },
 });
