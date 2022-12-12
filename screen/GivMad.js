@@ -13,7 +13,6 @@ import {useEffect, useState} from "react";
 import firebase from 'firebase';
 import React from 'react'
 import { auth } from '../firebase';
-import { db } from '../firebase';
 
 const GivFood = ({navigation, route}) => {
 
