@@ -9,6 +9,7 @@ import 'firebase/firestore';
 const firebaseConfig = {
   apiKey: "AIzaSyA3kQUo6TAmi5aujc8NY-tSBFN8Qgmr1Lg",
   authDomain: "fir-v1-f2026.firebaseapp.com",
+  databaseURL: "https://fir-v1-f2026-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "fir-v1-f2026",
   storageBucket: "fir-v1-f2026.appspot.com",
   messagingSenderId: "91591609747",
@@ -24,6 +25,5 @@ if (firebase.apps.length === 0) {
 }
 const auth = firebase.auth()
 const db = app.firestore();
-
 
 export { db, auth }

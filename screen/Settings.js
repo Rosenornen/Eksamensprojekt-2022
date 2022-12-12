@@ -30,7 +30,7 @@ export default function Home() {
       <StatusBar style ="light"/>
          <ImageBackground source={Baggrund} resizeMode="stretch"></ImageBackground>
          <View style={styles.Container}>
-          <Text style={styles.userDetails}> Bruger "{auth.currentUser?.email}" er logget ind</Text>
+          <Text style={styles.userDetails}> Bruger "{auth.currentUser?.uid}" er logget ind</Text>
           <Button style={styles.logud} title='Tryk for at logge ud' onPress={handleSignOut}></Button>
           </View>
         </>
