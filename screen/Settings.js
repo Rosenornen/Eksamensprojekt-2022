@@ -29,7 +29,9 @@ export default function Settings() {
         style={styles.LinearGradient}
         start={{ x: 1, y: 0 }}
         end={{ x: 1, y: 1 }}>
-          <Text style={styles.userDetails}> Bruger "{auth.currentUser?.uid}" er logget ind</Text>
+          <Text style={styles.User}> Brugeren som er logget ind:</Text>
+          <Text style={styles.Details}> ID: {auth.currentUser?.uid}</Text>
+          <Text style={styles.Details2}> Email: {auth.currentUser?.email}</Text>
           <Button style={styles.logud} title='Tryk for at logge ud' onPress={handleSignOut}></Button>
       </LinearGradient>
       </>
@@ -45,12 +47,28 @@ const styles = StyleSheet.create({
   logud:{
     
   },
-  userDetails:{
+  Details:{
     fontSize: 11,
     lineHeight: 10,
     fontWeight: 'bold',
     letterSpacing: 0.25,
     color: 'black',
+  },
+  Details2:{
+    fontSize: 11,
+    lineHeight: 10,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'black',
+    padding: 10
+  },
+  
+  User:{
+    fontSize: 10,
+    lineHeight: 10,
+    letterSpacing: 0.25,
+    color: 'black',
+    padding: 10
   }
 
 })
