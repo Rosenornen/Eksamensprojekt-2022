@@ -18,7 +18,7 @@ const FoodImagePicker = ({ image, onImagePicked }) => {
     }
   }, [image])
 
-  pickImageHandler = () => {
+  const pickImageHandler = () => {
     ImagePicker.showImagePicker({ title: 'Vælg et billede', maxWidth: 800, maxHeight: 600 },
       response => {
         if (response.error) {
@@ -38,7 +38,7 @@ const FoodImagePicker = ({ image, onImagePicked }) => {
         <Image source={selectedImage} style={styles.previewImage} />
       </View>
       <View styels={styles.button}>
-        <Button title="Vælg billede af din råvare" onPress={this.pickImageHandler} />
+        <Button title="Vælg billede af din råvare" onPress={pickImageHandler} />
       </View>
     </View>
   )
