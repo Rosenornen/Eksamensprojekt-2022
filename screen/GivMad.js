@@ -10,9 +10,8 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {useEffect, useState} from "react";
-import firebase from 'firebase';
 import React from 'react'
-import { auth } from '../firebase';
+import { auth, db, firebase } from "../firebase"
 import { LinearGradient } from 'expo-linear-gradient';
 
 const GivFood = ({navigation, route}) => {
@@ -117,7 +116,7 @@ LinearGradient: {
   padding: 10
 },
 container: {
-  marginTop: 50
+  marginTop: 100
 },
 row: {
     flexDirection: 'row',

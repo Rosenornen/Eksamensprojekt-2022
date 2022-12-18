@@ -1,5 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import {KeyboardAvoidingView, Platform, Text, View } from 'react-native';
+import { setStatusBarBackgroundColor, StatusBar } from 'expo-status-bar';
+import {KeyboardAvoidingView, Platform, Text, View, Image } from 'react-native';
 import {NavigationContainer} from "@react-navigation/native" 
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import Login from "./screen/Login"
@@ -12,6 +12,7 @@ import GivMad from './screen/GivMad';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {AntDesign, MaterialIcons, Ionicons, FontAwesome, FontAwesome5} from "@expo/vector-icons";
 import Chat from './screen/Chat';
+import MadDetaljer from './screen/MadDetaljer';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -33,7 +34,7 @@ export default function App() {
         }
       }}
       screenOptions={{
-        tabBarItemStyle: {flexDirection: "row"}
+        tabBarItemStyle: {flexDirection: "row"},
       }}
       >
        <Tab.Screen name=" " component={Chat} options={{
@@ -83,16 +84,23 @@ export default function App() {
             animationEnabled: true,
             gestureDirection: "horizontal",
             headerShown: false,
+            headerTransparent: true,
+
              }}/> 
+             
              <Stack.Screen name="BottomStack" component={BottomStackScreen} options={{
             gestureEnabled: true,
             animationEnabled: true,
+            title: "",
+            headerTransparent: true,
             gestureDirection: "horizontal",
-            headerShown: false,
-
+            headerTitle: () => (
+              <Image style={{ marginTop: 10, width: 250, height: 250 }} source={require("./assets/Splash2.png")} />
+            ), 
              }}/> 
 
              <Stack.Screen name = "GivMad" component={GivMad} options={{
+              
                 
                  }} /> 
              <Stack.Screen name = "HentMad" component={HentMad} options={{
@@ -104,7 +112,24 @@ export default function App() {
              <Stack.Screen name = "Chat" component={Chat} options={{
                 
                  }}/>  
-
+              <Stack.Screen name = "MadDetaljer" component={MadDetaljer} options={{
+                gestureEnabled: true,
+                animationEnabled: true,
+                gestureDirection: "horizontal",
+                headerBackTitleVisible: false,
+                headerTransparent: true,
+                title: 'DETALJER ',
+                headerTintColor: 'black',
+                headerTitleStyle: {
+                  fontWeight: 'bold',
+                  fontSize: 25
+                },
+                headerRight: () => (
+                  <Image style={{ marginRight: "-45%", width: 200, height: 200 }} source={require("./assets/Splash2.png")} />
+                ),              
+              }} /> 
+        
+          
         </Stack.Navigator>
     </KeyboardAvoidingView>
     </NavigationContainer>

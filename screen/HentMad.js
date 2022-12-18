@@ -27,7 +27,7 @@ const FoodList = ({navigation}) => {
     const handleSelectFood = id => {
         /*Her søger vi direkte i vores array af foods og finder food objektet som matcher idet vi har tilsendt*/
         const food = Object.entries(foods).find( food => food[0] === id /*id*/)
-        navigation.navigate('Food Details', { food });
+        navigation.navigate('MadDetaljer', { food });
     };
 
     // Flatlist forventer et array. Derfor tager vi alle values fra vores foods objekt, og bruger som array til listen
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   },
     container: {
       justifyContent: 'center',
-      marginTop: 40,
+      marginTop: 100,
       padding: 5
     },
     foodItem: {
