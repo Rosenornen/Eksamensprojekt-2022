@@ -82,7 +82,7 @@ const GivFood = ({navigation, route}) => {
           .update({Id_, Hvem, Hvor, Hvad, Info, Madtype, Image});
         Alert.alert('Din info er blevet opdateret');
         const food = [id, newFood];
-        navigation.navigate('Food Details', {food});
+        navigation.navigate('MadDetaljer', {food});
       } catch(error) {
         console.log(`Error: ${error.message}`)
       }
@@ -90,7 +90,7 @@ const GivFood = ({navigation, route}) => {
       try {
         firebase
           .database()
-          .ref('/Food/')
+          .ref('/MadTilAfhentning/')
           .push({Id_, Hvem, Hvor, Hvad, Info, Madtype, Image,})
         Alert.alert(`Saved`);
         setNewFood(initialState)
@@ -106,7 +106,7 @@ const GivFood = ({navigation, route}) => {
         start={{ x: 1, y: 0 }}
         end={{ x: 1, y: 1 }}>
         <SafeAreaView>
-        <View style={styles.row}>
+            <View style={styles.row}>
                 <Text style={styles.label}>Hvem</Text>
                 <TextInput value={newFood.Hvem}style={styles.input} onChangeText={(event) => changeTextInput('Hvem', event)} />
             </View>
@@ -136,7 +136,6 @@ const GivFood = ({navigation, route}) => {
             </View>
             </View>
 
-              {/* <TextInput value={newFood.Foto} onChangeText={(event) => changeTextInput('Foto', event)}/>*/}  
             
 
             <Button title={ isEditFood ? "Save changes" : "Add Food"} onPress={() => handleSave()} />

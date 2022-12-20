@@ -8,6 +8,8 @@ import UploadContext from '../components/UploadContext';
 
 export default function Home() {  
   
+  
+
   const navigation = useNavigation()
 
     return (
