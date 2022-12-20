@@ -153,9 +153,6 @@ LinearGradient: {
   justifyContent: 'center',
   padding: 10
 },
-container: {
-  marginTop: 120
-},
 selectButton:{
   alignItems: "left",
   width: "50%",
@@ -169,7 +166,6 @@ buttonText:{
   backgroundColor: "white",
   fontWeight: "bold"
 },
-
 row: {
     flexDirection: 'row',
     height: 30,
@@ -183,7 +179,7 @@ input: {
     borderWidth: 1,
     padding: 12,
     flex: 1,
-    margin: -5,
+    margin: 5,
     
 },
 });

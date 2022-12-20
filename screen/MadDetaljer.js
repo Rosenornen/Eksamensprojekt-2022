@@ -51,6 +51,7 @@ function DisplayContext() {
 }
 
 const styles = StyleSheet.create({
+
   LinearGradient: {
     flex: 1,
     alignItems: 'center',

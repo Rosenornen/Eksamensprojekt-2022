@@ -4,7 +4,7 @@ import firebase from 'firebase';
 import {useEffect, useState} from "react";
 import { LinearGradient } from 'expo-linear-gradient';
 
-const FoodList = ({navigation}) => {
+const MadListe = ({navigation}) => {
 
     const [foods,setFoods] = useState()
 
@@ -18,8 +18,6 @@ const FoodList = ({navigation}) => {
                 });
         }
     },[]);
-
-    
 
     // Vi viser ingenting hvis der ikke er data
     if (!foods) {
@@ -65,7 +63,7 @@ const FoodList = ({navigation}) => {
     );
 }
 
-export default FoodList;
+export default MadListe;
 
 
 const styles = StyleSheet.create({
