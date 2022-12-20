@@ -12,7 +12,7 @@ const FoodList = ({navigation}) => {
         if(!foods) {
             firebase
                 .database()
-                .ref('/Food/')
+                .ref('/MadTilAfhentning/')
                 .on('value', snapshot => {
                     setFoods(snapshot.val())
                 });

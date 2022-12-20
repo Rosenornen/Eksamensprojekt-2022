@@ -18,7 +18,7 @@ function UploadContext() {
     }
 
     // Write the data to the Firebase Realtime Database
-    firebase.database().ref('/users/' + auth.currentUser?.uid).set({
+    firebase.database().ref('/MadTilAfhentning/' + auth.currentUser?.uid).set({
     hvem,
     hvor,
     hvad,
