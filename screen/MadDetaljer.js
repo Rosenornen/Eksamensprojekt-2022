@@ -2,6 +2,7 @@ import * as React from 'react';
 import { View, Text, Platform, FlatList, StyleSheet, Button, Alert } from 'react-native';
 import firebase from 'firebase';
 import {useEffect, useState} from "react";
+import { LinearGradient } from 'expo-linear-gradient';
 
 const MadDetaljer = ({route,navigation}) => {
     const [food,setFood] = useState({});
@@ -23,7 +24,12 @@ const MadDetaljer = ({route,navigation}) => {
 
     //all content
     return (
-        <View style={styles.container}>
+        <LinearGradient
+        colors={['#fce24e', 'white']}
+        style={styles.LinearGradient}
+        start={{ x: 1, y: 0 }}
+        end={{ x: 1, y: 1 }}>
+       <View style={styles.container}>
             {
                 Object.entries(food).map((item,index)=>{
                     return(
@@ -37,12 +43,18 @@ const MadDetaljer = ({route,navigation}) => {
                 })
             }
         </View>
+        </LinearGradient>
     );
 }
 
 export default MadDetaljer;
 
 const styles = StyleSheet.create({
+    LinearGradient: {
+        flex: 1,
+        justifyContent: 'center',
+        padding: 10
+      },
     container: { 
       flex: 1, 
       justifyContent: 'flex-start',
