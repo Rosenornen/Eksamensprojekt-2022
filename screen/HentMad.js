@@ -51,7 +51,7 @@ const FoodList = ({navigation}) => {
                 return(
                     <TouchableOpacity style={styles.foodItem} onPress={() => handleSelectFood(foodKeys[index])}>
                         <Text>
-                             {item.Hvem}   {item.Hvor}   {item.Hvad}   {item.Id_}
+                             {item.Hvem}   {item.Hvor}   {item.Hvad}  {item.Id_}
                         </Text>
                     </TouchableOpacity>
                 )
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   },
     container: {
       justifyContent: 'center',
-      marginTop: 100,
+      marginTop: 120,
       padding: 5
     },
     foodItem: {

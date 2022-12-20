@@ -117,7 +117,7 @@ LinearGradient: {
   padding: 10
 },
 container: {
-  marginTop: 100
+  marginTop: 120
 },
 row: {
     flexDirection: 'row',
