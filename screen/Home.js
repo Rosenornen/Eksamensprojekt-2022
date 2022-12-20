@@ -3,7 +3,6 @@ import React from 'react'
 import { auth } from '../firebase';
 import { db } from '../firebase';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Header } from "../components/Header"
 import { useNavigation } from '@react-navigation/native'
 
 export default function Home() {  

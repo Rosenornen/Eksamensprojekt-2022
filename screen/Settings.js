@@ -1,13 +1,21 @@
 
-import {StyleSheet, Text, View, Button, TextInput} from 'react-native'
-import React from 'react'
+import {StyleSheet, Text, View, Button, TextInput, Alert, Image, Pressable} from 'react-native'
+import React, { useState } from 'react'
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native'
 import { auth } from '../firebase';
 import { LinearGradient } from 'expo-linear-gradient';
 import { RadioButton } from 'react-native-paper';
-import { TouchableOpacity } from 'react-native-web';
+import { ScrollView, TouchableOpacity } from 'react-native-web';
+import {Dropdown} from 'react-native-element-dropdown';
+import {Ionicons} from "@expo/vector-icons";
 
+const data = [
+  { label: 'Kollegiet Egmont', value: '1' },
+  { label: 'Tietgen', value: '2' },
+  { label: 'Ejerforening EHV 17-29', value: '3' },
+  { label: 'Stålkollegiet', value: '4' },
+];
 
 export default function Settings() {
 
@@ -23,11 +31,13 @@ export default function Settings() {
 const handleSave = () => {}
 
     const navigation = useNavigation()
+    const [image, setImage] = useState(null);
     const [name, setName] = React.useState(null);
     const [home, setHome] = React.useState(null);
-    //const [privacy, setPrivacy] = React.useState(true);
+    // Radio button
     const [checked, setChecked] = React.useState('true');
-
+    // Dropdown menu
+    const [homegroup, setHomegroup] = useState(null);
 
   /* Liiidt for simple logud, men det var nødvendigt for at teste */
     return (
@@ -38,10 +48,34 @@ const handleSave = () => {}
         style={styles.LinearGradient}
         start={{ x: 1, y: 0 }}
         end={{ x: 1, y: 1 }}>
+        <View style={styles.textContainer}>
         <Text style={styles.User}> Brugeren som er logget ind:</Text>
-        <Text style={styles.Details2}> Email: {auth.currentUser?.email}</Text>
-
-
+        <Text style={styles.Details}> Email: {auth.currentUser?.email}</Text>
+        <Text style={styles.Details}> ID: {auth.currentUser?.uid}</Text>
+        </View>
+        <Dropdown
+        style={styles.dropdown}
+        placeholderStyle={styles.placeholderStyle}
+        selectedTextStyle={styles.selectedTextStyle}
+        inputSearchStyle={styles.inputSearchStyle}
+        iconStyle={styles.iconStyle}
+        data={data}
+        search
+        maxHeight={150}
+        showsVerticalScrollIndicator="true"
+        labelField="label"
+        valueField="value"
+        placeholder="Find dit lokalområde"
+        searchPlaceholder="Søg..."
+        value={homegroup}
+        onChange={item => {
+          setHomegroup(item.homegroup);
+        }}
+        renderLeftIcon={() => (
+          <Ionicons style={styles.icon} color="black" name="home" size={20} />
+        )}
+      />
+      <View style={styles.textInputContainer}>
       <TextInput
         style={styles.input}
         onChangeText={setName}
@@ -52,29 +86,33 @@ const handleSave = () => {}
         style={styles.input}
         onChangeText={setHome}
         value={home}
-        placeholder="Din adresse"
+        placeholder="Din adresse indenfor dit lokalområde"
       />
-      <Text style={styles.privacyOverskrift}>Privacy Settings</Text>
+      </View>
+      
+      <Text style={styles.privacyOverskrift}>BETTINGELSER</Text>
       <View style={styles.privacy}>
-      <RadioButton
+      <RadioButton.Android
         value="true"
         status={ checked === 'true' ? 'checked' : 'unchecked' }
         onPress={() => setChecked('true')}
         color="green"
       />
       <Text style={styles.privacyText}> Accepter</Text>
-      <RadioButton
+      <RadioButton.Android
         value="false"
         status={ checked === 'false' ? 'checked' : 'unchecked' }
-        onPress={() => setChecked('false')}
+        onPress={() => setChecked('false') & Alert.alert("Du skal acceptere betingelserne for at bruge appen") & setChecked("true")}
         color="red"
-
       />
       <Text style={styles.privacyText}> Afvis</Text>
       </View>
-          <Text style={styles.Details}> ID: {auth.currentUser?.uid}</Text>
-          <Button style={styles.logud} title='Tryk for at logge ud' onPress={handleSignOut}></Button>
-          <Button style={styles.saveButton} title='Tryk for at gemme' onPress={handleSave}></Button>
+
+          <View style={styles.buttonContainer}>
+          <Pressable style={styles.logudButton} onPress={handleSignOut}><Text style={styles.logudText}>Log ud</Text></Pressable>
+          <Pressable style={styles.saveButton}  onPress={handleSave}><Text style={styles.saveText}>Gem indhold</Text></Pressable>
+          </View>
+          
 
       </LinearGradient>
       </>
@@ -87,37 +125,49 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  saveButton:{
-    borderRadius:10,
-    width: 100,
-    height: 50,
-    marginTop: 30,
-    backgroundColor: "red",
-    alignItems: "center",
-    justifyContent: "center",
+  textContainer:{
+    alignContent: "center",
+    alignItems: 'center',
+
   },
-  buttonText:{
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold"
+  textInputContainer:{
+    alignContent: "center",
+    alignItems: 'center',
+  },
+  dropdown: {
+    margin: 15,
+    height: 50,
+    width: "75%",
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
+    borderRadius: 4,
+  },
+  icon: {
+    marginRight: 5,
+  },
+  placeholderStyle: {
+    fontSize: 13,
+  },
+  selectedTextStyle: {
+    fontSize: 12,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 30,
+    fontSize: 12,
+    borderRadius: 4,
   },
   Details:{
     fontSize: 11,
     lineHeight: 10,
-    margin: 10,
+    margin: 2,
     fontWeight: 'bold',
     letterSpacing: 0.25,
     color: 'black',
   },
-  Details2:{
-    fontSize: 11,
-    lineHeight: 10,
-    fontWeight: 'bold',
-    letterSpacing: 0.25,
-    color: 'black',
-    padding: 10
-  },
-  
   User:{
     fontSize: 10,
     lineHeight: 10,
@@ -127,29 +177,61 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    margin: 12,
-    borderWidth: 1,
+    margin: 10,
+    borderWidth: 1.5,
     padding: 10,
+    borderColor: "black",
+    borderRadius: 4,
   },
   privacy: {
-    borderWidth: 1,
+    borderWidth: 1.5,
     alignItems: "center",
     width: "30%",
     flexDirection: "row",
     flexWrap: "wrap",
-
+    borderRadius: 4,
   },
   privacyText:{
     justifyContent: "center",
-    fontStyle: "italic"
+    fontStyle: "italic",
+    fontWeight: "bold"
   },
   privacyOverskrift:{
     fontWeight: "bold",
-    padding: 2,
+    marginBottom: 5,
+    alignContent: "center"
+  },
+  buttonContainer:{
+    flexDirection: "row",
+    marginTop: 20,
+    
   },
   saveButton:{
-    backgroundColor: "black"
-    
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: "5%",
+    marginLeft: 50,
+    borderRadius: 8,
+    borderColor: "black",
+    borderWidth: 1,
+    backgroundColor: 'lightgreen',
+  },
+  saveText:{
+    fontWeight: "bold"
+  },
+  logudButton:{
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 15,
+    paddingHorizontal: "10%",
+    borderRadius: 8,
+    borderColor: "black",
+    borderWidth: 1,
+    backgroundColor: 'red',
+  },
+  logudText:{
+    fontWeight: "bold"
   }
 
 })
