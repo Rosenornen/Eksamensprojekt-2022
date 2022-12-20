@@ -1,5 +1,5 @@
 
-import {StyleSheet, Text, View, Button} from 'react-native'
+import {StyleSheet, Text, View, Button, TextInput} from 'react-native'
 import React from 'react'
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native'
@@ -19,6 +19,8 @@ export default function Settings() {
 }
 
     const navigation = useNavigation()
+    const [text, onChangeEmail] = React.useState(auth.currentUser?.email);
+    const [number, onChangeName] = React.useState(null);
 
   /* Liiidt for simple logud, men det var nødvendigt for at teste */
     return (
@@ -29,6 +31,18 @@ export default function Settings() {
         style={styles.LinearGradient}
         start={{ x: 1, y: 0 }}
         end={{ x: 1, y: 1 }}>
+          <TextInput
+        style={styles.input}
+        onChangeText={onChangeEmail}
+        value={text}
+      />
+      <TextInput
+        style={styles.input}
+        onChangeText={onChangeName}
+        value={number}
+        placeholder="Indsæt dit navn, så dine naboer kan kende dig"
+        keyboardType="numeric"
+      />
           <Text style={styles.User}> Brugeren som er logget ind:</Text>
           <Text style={styles.Details}> ID: {auth.currentUser?.uid}</Text>
           <Text style={styles.Details2}> Email: {auth.currentUser?.email}</Text>
@@ -69,6 +83,12 @@ const styles = StyleSheet.create({
     letterSpacing: 0.25,
     color: 'black',
     padding: 10
-  }
+  },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+  },
 
 })

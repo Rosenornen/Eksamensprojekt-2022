@@ -13,6 +13,7 @@ import {useEffect, useState} from "react";
 import React from 'react'
 import { auth, db, firebase } from "../firebase"
 import { LinearGradient } from 'expo-linear-gradient';
+import UploadScreen from '../components/UploadSceen';
 
 const GivFood = ({navigation, route}) => {
 

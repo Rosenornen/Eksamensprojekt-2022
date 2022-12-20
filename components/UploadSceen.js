@@ -6,7 +6,6 @@ import { auth, db, firebase } from "../firebase"
 const UploadScreen = () => {
   const [image, setImage] = useState(null);
   const [uploading, setUploading] = useState(false);
-  /*const [imagesArr, setImagesArr] = useState([]);*/
 
   const pickImage = async () => {
     // Ingen tilladelse er nødvendigt for at bruge billede galleriet
@@ -91,7 +90,7 @@ const styles = StyleSheet.create({
   imageContainer:{
     marginTop: 30,
     marginBottom: 50,
-    alignItems: "center"
+    alignItems: "center",
   },
 })
 
