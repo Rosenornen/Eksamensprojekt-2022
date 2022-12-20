@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 import { auth } from '../firebase';
 import { LinearGradient } from 'expo-linear-gradient';
 import { RadioButton } from 'react-native-paper';
+import { TouchableOpacity } from 'react-native-web';
 
 
 export default function Settings() {
@@ -18,6 +19,8 @@ export default function Settings() {
         })
         .catch(error => alert(error.message))
 }
+
+const handleSave = () => {}
 
     const navigation = useNavigation()
     const [name, setName] = React.useState(null);
@@ -68,10 +71,11 @@ export default function Settings() {
 
       />
       <Text style={styles.privacyText}> Afvis</Text>
-
-    </View>
+      </View>
           <Text style={styles.Details}> ID: {auth.currentUser?.uid}</Text>
           <Button style={styles.logud} title='Tryk for at logge ud' onPress={handleSignOut}></Button>
+          <Button style={styles.saveButton} title='Tryk for at gemme' onPress={handleSave}></Button>
+
       </LinearGradient>
       </>
     )
@@ -83,8 +87,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  logud:{
-    
+  saveButton:{
+    borderRadius:10,
+    width: 100,
+    height: 50,
+    marginTop: 30,
+    backgroundColor: "red",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonText:{
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold"
   },
   Details:{
     fontSize: 11,
@@ -132,5 +147,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     padding: 2,
   },
+  saveButton:{
+    backgroundColor: "black"
+    
+  }
 
 })
