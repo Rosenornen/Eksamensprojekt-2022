@@ -1,14 +1,15 @@
 
 import {StyleSheet, Text, View, Button, TextInput, Alert, Image, Pressable} from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native'
-import { auth } from '../firebase';
+import { auth, firebase } from '../firebase';
 import { LinearGradient } from 'expo-linear-gradient';
 import { RadioButton } from 'react-native-paper';
 import { ScrollView, TouchableOpacity } from 'react-native-web';
 import {Dropdown} from 'react-native-element-dropdown';
 import {Ionicons} from "@expo/vector-icons";
+
 
 const data = [
   { label: 'Kollegiet Egmont', value: '1' },
@@ -17,7 +18,7 @@ const data = [
   { label: 'Stålkollegiet', value: '4' },
 ];
 
-export default function Settings() {
+export default function Settings({navigation, route}) {
 
   const handleSignOut = () => {
     auth
@@ -28,17 +29,68 @@ export default function Settings() {
         .catch(error => alert(error.message))
 }
 
-const handleSave = () => {}
+  const initialState = {
+    Id_: auth.currentUser?.uid,
+    homegroup: '',
+    home: '',
+    fullName: ''
+  }
 
-    const navigation = useNavigation()
-    const [image, setImage] = useState(null);
-    const [name, setName] = React.useState(null);
-    const [home, setHome] = React.useState(null);
-    // Radio button
-    const [checked, setChecked] = React.useState('true');
-    // Dropdown menu
-    const [homegroup, setHomegroup] = useState(null);
+  const [newUser, setNewUser] = useState(initialState);
+  const isEditUser = route.name === "Edit User";
 
+
+  useEffect(() => {
+    if(isEditUser){
+        const user = route.params.user[1];
+        setNewUser(user)
+    }
+    /*Fjern data, når vi går væk fra screenen*/
+    return () => {
+        setNewUser(initialState)
+    };
+}, []);
+
+  const changeTextInput = (name,event) => {
+    setNewUser({...newUser, [name]: event});
+  }  
+
+  const handleSave = () => {
+
+    const { Id_, homegroup, home, fullName} = newUser;
+
+    if(Id_ === auth.currentUser?.uid, homegroup.length === 0, home.length === 0, fullName.length === 0){
+      return Alert.alert('Alle felter skal udfyldes')
+    }
+    if(isEditUser){
+      const id = Id_;
+      try{
+        firebase
+          .database()
+          .ref(`/User/${id}`)
+          .update({homegroup, home, fullName});
+        Alert.alert('Din info er blevet opdateret');
+        const user = [id, newUser];
+        navigation.navigate('User Details', {user});
+      } catch(error) {
+        console.log(`Error: ${error.message}`)
+      }
+    } else {
+      try {
+        firebase
+          .database()
+          .ref('/User/')
+          .push({Id_, homegroup, home, fullName})
+        Alert.alert(`Saved`);
+        setNewUser(initialState)
+      } catch(error) {
+        console.log(`Error: ${error.message}`)
+      }
+    }
+  }
+
+  const [checked, setChecked] = React.useState('true');
+  
   /* Liiidt for simple logud, men det var nødvendigt for at teste */
     return (
       <>
@@ -67,10 +119,8 @@ const handleSave = () => {}
         valueField="value"
         placeholder="Find dit lokalområde"
         searchPlaceholder="Søg..."
-        value={homegroup}
-        onChange={item => {
-          setHomegroup(item.homegroup);
-        }}
+        value={data}
+        onChange = {(event) => changeTextInput('homegroup', event)}
         renderLeftIcon={() => (
           <Ionicons style={styles.icon} color="black" name="home" size={20} />
         )}
@@ -78,14 +128,14 @@ const handleSave = () => {}
       <View style={styles.textInputContainer}>
       <TextInput
         style={styles.input}
-        onChangeText={setName}
-        value={name}
+        onChangeText={(event) => changeTextInput('fullName', event)}
+        value={newUser.fullName}
         placeholder="Indsæt dit navn, så dine naboer kan kende dig"
       />
       <TextInput
         style={styles.input}
-        onChangeText={setHome}
-        value={home}
+        onChangeText={(event) => changeTextInput('home', event)}
+        value={newUser.home}
         placeholder="Din adresse indenfor dit lokalområde"
       />
       </View>
@@ -110,7 +160,7 @@ const handleSave = () => {}
 
           <View style={styles.buttonContainer}>
           <Pressable style={styles.logudButton} onPress={handleSignOut}><Text style={styles.logudText}>Log ud</Text></Pressable>
-          <Pressable style={styles.saveButton}  onPress={handleSave}><Text style={styles.saveText}>Gem indhold</Text></Pressable>
+          <Pressable style={styles.saveButton} onPress={() => handleSave()}><Text style={styles.saveText}>Gem indhold</Text></Pressable>
           </View>
           
 
