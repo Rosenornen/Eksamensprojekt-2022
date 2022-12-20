@@ -21,7 +21,7 @@ const FoodList = ({navigation}) => {
 
     // Vi viser ingenting hvis der ikke er data
     if (!foods) {
-        return <Text>Loading...</Text>;
+        return <Text style = {styles.empty}>Loading...</Text>;
     }
 
     const handleSelectFood = id => {
@@ -76,6 +76,10 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       marginTop: 120,
       padding: 5
+    },
+    empty: {
+        justifyContent: 'center',
+        marginTop: 120
     },
     foodItem: {
         flex: 1,
