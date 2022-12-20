@@ -5,7 +5,6 @@ import { auth } from '../firebase';
 import { db } from '../firebase';
 import { LinearGradient } from 'expo-linear-gradient';
 import UploadScreen from '../components/UploadSceen';
-import FoodImagePicker from "../components/ImagePicker"
 
 function Chat() {
     return (

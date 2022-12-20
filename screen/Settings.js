@@ -5,6 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native'
 import { auth } from '../firebase';
 import { LinearGradient } from 'expo-linear-gradient';
+import { RadioButton } from 'react-native-paper';
 
 
 export default function Settings() {
@@ -19,8 +20,11 @@ export default function Settings() {
 }
 
     const navigation = useNavigation()
-    const [text, onChangeEmail] = React.useState(auth.currentUser?.email);
-    const [number, onChangeName] = React.useState(null);
+    const [name, setName] = React.useState(null);
+    const [home, setHome] = React.useState(null);
+    //const [privacy, setPrivacy] = React.useState(true);
+    const [checked, setChecked] = React.useState('true');
+
 
   /* Liiidt for simple logud, men det var nødvendigt for at teste */
     return (
@@ -31,21 +35,40 @@ export default function Settings() {
         style={styles.LinearGradient}
         start={{ x: 1, y: 0 }}
         end={{ x: 1, y: 1 }}>
-          <TextInput
+        <Text style={styles.User}> Brugeren som er logget ind:</Text>
+        <Text style={styles.Details2}> Email: {auth.currentUser?.email}</Text>
+
+
+      <TextInput
         style={styles.input}
-        onChangeText={onChangeEmail}
-        value={text}
+        onChangeText={setName}
+        value={name}
+        placeholder="Indsæt dit navn, så dine naboer kan kende dig"
       />
       <TextInput
         style={styles.input}
-        onChangeText={onChangeName}
-        value={number}
-        placeholder="Indsæt dit navn, så dine naboer kan kende dig"
-        keyboardType="numeric"
+        onChangeText={setHome}
+        value={home}
+        placeholder="Din adresse"
       />
-          <Text style={styles.User}> Brugeren som er logget ind:</Text>
+      <Text style={styles.privacyOverskrift}>Privacy Settings</Text>
+      <View style={styles.privacy}>
+      <RadioButton
+        value="true"
+        status={ checked === 'true' ? 'checked' : 'unchecked' }
+        onPress={() => setChecked('true')}
+        color="orange"
+      />
+      <Text style={styles.privacyText}> Accepter</Text>
+      <RadioButton
+        value="false"
+        status={ checked === 'false' ? 'checked' : 'unchecked' }
+        onPress={() => setChecked('false')}
+      />
+      <Text style={styles.privacyText}> Afvis</Text>
+
+    </View>
           <Text style={styles.Details}> ID: {auth.currentUser?.uid}</Text>
-          <Text style={styles.Details2}> Email: {auth.currentUser?.email}</Text>
           <Button style={styles.logud} title='Tryk for at logge ud' onPress={handleSignOut}></Button>
       </LinearGradient>
       </>
@@ -64,6 +87,7 @@ const styles = StyleSheet.create({
   Details:{
     fontSize: 11,
     lineHeight: 10,
+    margin: 10,
     fontWeight: 'bold',
     letterSpacing: 0.25,
     color: 'black',
@@ -89,6 +113,22 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
+  },
+  privacy: {
+    borderWidth: 1,
+    alignItems: "center",
+    width: "30%",
+    flexDirection: "row",
+    flexWrap: "wrap",
+
+  },
+  privacyText:{
+    justifyContent: "center",
+    fontStyle: "italic"
+  },
+  privacyOverskrift:{
+    fontWeight: "bold",
+    padding: 2,
   },
 
 })
