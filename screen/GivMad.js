@@ -7,15 +7,20 @@ import {
   Button,
   Alert,
   ScrollView,
+  TouchableOpacity,
+  Image,
   SafeAreaView,
 } from 'react-native';
 import {useEffect, useState} from "react";
 import React from 'react'
 import { auth, db, firebase } from "../firebase"
 import { LinearGradient } from 'expo-linear-gradient';
-import UploadScreen from '../components/UploadSceen';
+import * as ImagePicker from "expo-image-picker";
+
 
 const GivFood = ({navigation, route}) => {
+
+  const [image, setImage] = useState(null);
 
   const initialState = {
     Id_: auth.currentUser?.uid,
@@ -24,7 +29,7 @@ const GivFood = ({navigation, route}) => {
     Hvad: '',
     Info: '',
     Madtype: '',
-    Foto: ''
+    Image: ''
   }
 
   const [newFood, setNewFood] = useState(initialState);
@@ -46,12 +51,26 @@ const GivFood = ({navigation, route}) => {
   const changeTextInput = (name,event) => {
     setNewFood({...newFood, [name]: event});
   }   
+  const pickImage = async () => {
+    // Ingen tilladelse er nødvendigt for at bruge billede galleriet
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    const source = { uri: result.uri };
+    console.log(source);
+    setImage(source);
+
+};
 
   const handleSave = () => {
 
-    const { Id_, Hvem, Hvor, Hvad, Info, Madtype, Foto} = newFood;
+    const { Id_, Hvem, Hvor, Hvad, Info, Madtype, Image} = newFood;
 
-    if(Id_ === auth.currentUser?.uid,Hvem.length === 0, Hvor.length === 0, Hvad.length === 0, Info.length === 0, Madtype.length === 0, Foto.length === 0){
+    if(Id_ === auth.currentUser?.uid,Hvem.length === 0, Hvor.length === 0, Hvad.length === 0, Info.length === 0, Madtype.length === 0, Image.length === 0){
       return Alert.alert('Alle felter skal udfyldes')
     }
     if(isEditFood){
@@ -60,7 +79,7 @@ const GivFood = ({navigation, route}) => {
         firebase
           .database()
           .ref(`/Food/${id}`)
-          .update({Id_, Hvem, Hvor, Hvad, Info, Madtype, Foto});
+          .update({Id_, Hvem, Hvor, Hvad, Info, Madtype, Image});
         Alert.alert('Din info er blevet opdateret');
         const food = [id, newFood];
         navigation.navigate('Food Details', {food});
@@ -72,7 +91,7 @@ const GivFood = ({navigation, route}) => {
         firebase
           .database()
           .ref('/Food/')
-          .push({Id_, Hvem, Hvor, Hvad, Info, Madtype, Foto,})
+          .push({Id_, Hvem, Hvor, Hvad, Info, Madtype, Image,})
         Alert.alert(`Saved`);
         setNewFood(initialState)
       } catch(error) {
@@ -109,8 +128,17 @@ const GivFood = ({navigation, route}) => {
             </View> 
             <View style={styles.row}>
                 <Text style={styles.label}>Foto</Text>
-                <TextInput value={newFood.Foto} onChangeText={(event) => changeTextInput('Foto', event)} style={styles.input} multiline={true}/>
-            </View>                                   
+                <TouchableOpacity style={styles.selectButton} onPress={pickImage}>
+            <Text style={styles.buttonText}> Vælg et billede</Text>
+            </TouchableOpacity>
+            <View>
+              {image && <Image source={{uri: image.uri}} style={{width: 75, height: 75, borderColor: "black", borderWidth: 1}}/>}
+            </View>
+            </View>
+
+              {/* <TextInput value={newFood.Foto} onChangeText={(event) => changeTextInput('Foto', event)}/>*/}  
+            
+
             <Button title={ isEditFood ? "Save changes" : "Add Food"} onPress={() => handleSave()} />
         </SafeAreaView>
         </LinearGradient>
@@ -128,6 +156,20 @@ LinearGradient: {
 container: {
   marginTop: 120
 },
+selectButton:{
+  alignItems: "left",
+  width: "50%",
+  justifyContent: "center"
+},
+buttonText:{
+  color: "black",
+  alignItems: "center",
+  borderWidth: 1,
+  borderRadius: 5,
+  backgroundColor: "white",
+  fontWeight: "bold"
+},
+
 row: {
     flexDirection: 'row',
     height: 30,
