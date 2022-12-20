@@ -48,26 +48,6 @@ const MadDetaljer = ({route,navigation}) => {
 }
 
 const styles = StyleSheet.create({
-
-  LinearGradient: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },  
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  image: {
-    width: 200,
-    height: 200,
-    margin: 10
-  },
-
-});
-
-const styles = StyleSheet.create({
     LinearGradient: {
         flex: 1,
         justifyContent: 'center',
@@ -91,3 +71,5 @@ const styles = StyleSheet.create({
       flex: 1 
     },
 });
+
+export default MadDetaljer;
