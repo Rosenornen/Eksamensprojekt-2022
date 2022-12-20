@@ -86,24 +86,33 @@ const GivFood = ({navigation, route}) => {
         style={styles.LinearGradient}
         start={{ x: 1, y: 0 }}
         end={{ x: 1, y: 1 }}>
-        <ScrollView style = {styles.container}>
-            {
-                Object.keys(initialState).map((key,index) =>{
-                    return(
-                        <View style={styles.row} key={index}>
-                            <Text style={styles.label}>{key}</Text>
-                            <TextInput
-                                value={newFood[key]}
-                                onChangeText={(event) => changeTextInput(key,event)}
-                                style={styles.input}
-                            />
-                        </View>
-                    )
-                })
-            }
-            {/*Hvis vi er inde på edit food, vis save changes i stedet for add car*/}
+        <SafeAreaView>
+        <View style={styles.row}>
+                <Text style={styles.label}>Hvem</Text>
+                <TextInput value={newFood.Hvem}style={styles.input} onChangeText={(event) => changeTextInput('Hvem', event)} />
+            </View>
+            <View style={styles.row}>
+                <Text style={styles.label}>Hvor</Text>
+                <TextInput value={newFood.Hvor} onChangeText={(event) => changeTextInput('Hvor', event)} style={styles.input} multiline={true}/>
+            </View>
+            <View style={styles.row}>
+                <Text style={styles.label}>Hvad</Text>
+                <TextInput value={newFood.Hvad} onChangeText={(event) => changeTextInput('Hvad', event)} style={styles.input} multiline={true}/>
+            </View>
+            <View style={styles.row}>
+                <Text style={styles.label}>Info</Text>
+                <TextInput value={newFood.Info} onChangeText={(event) => changeTextInput('Info', event)} style={styles.input} multiline={true}/>
+            </View>
+            <View style={styles.row}>
+                <Text style={styles.label}>Madtype</Text>
+                <TextInput value={newFood.Madtype} onChangeText={(event) => changeTextInput('Madtype', event)} style={styles.input} multiline={true}/>
+            </View> 
+            <View style={styles.row}>
+                <Text style={styles.label}>Foto</Text>
+                <TextInput value={newFood.Foto} onChangeText={(event) => changeTextInput('Foto', event)} style={styles.input} multiline={true}/>
+            </View>                                   
             <Button title={ isEditFood ? "Save changes" : "Add Food"} onPress={() => handleSave()} />
-        </ScrollView>
+        </SafeAreaView>
         </LinearGradient>
 );
 }
