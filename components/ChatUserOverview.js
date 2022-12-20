@@ -1,0 +1,62 @@
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { auth, db, firebase } from "../firebase"
+
+function ChatUserOverview() {
+  const [users, setUsers] = useState([]);
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    const userRef = 
+    firebase
+    .database()
+    .ref('User');
+    userRef.on('value', snapshot => {
+      const users = snapshot.val();
+      console.log(users);  
+      setUsers(users);
+    });
+  }, []);
+
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={Object.values(users)}  // Convert object to array
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={styles.userItem}
+            onPress={() =>
+              navigation.navigate('DirectChat', { fullName: item.fullName })
+            }
+          >
+            <Text style={styles.fullName}>{item.fullName}</Text>
+          </TouchableOpacity>
+        )}
+        keyExtractor={item => item.fullName}
+      />
+    </View>
+  );
+}
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: 'transparent',
+      alignItems: 'center',
+      flexDirection: "row",
+      justifyContent: 'center',
+    },
+    userItem: {
+      backgroundColor: '#f0f0f0',
+      width: "75%",
+      paddingTop: 10,
+      marginTop: 20,
+      marginHorizontal: 30,
+      borderWidth: 1,
+      borderRadius: 5,
+    },
+    fullName: {
+      fontSize: 20,
+    },
+});
+export default ChatUserOverview;

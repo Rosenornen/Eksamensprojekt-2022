@@ -9,6 +9,8 @@ import Home from './screen/Home';
 import Settings from './screen/Settings';
 import HentMad from './screen/HentMad';
 import GivMad from './screen/GivMad';
+import ChatUserOverview from './components/ChatUserOverview';
+import DirectChat from './screen/DirectChat';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {AntDesign, MaterialIcons, Ionicons, FontAwesome, FontAwesome5} from "@expo/vector-icons";
 import Chat from './screen/Chat';
@@ -112,6 +114,12 @@ export default function App() {
              <Stack.Screen name = "Chat" component={Chat} options={{
                 
                  }}/>  
+              <Stack.Screen name = "DirectChat" component={DirectChat} options={{
+                
+              }}/>  
+              <Stack.Screen name = "ChatUserOverview" component={ChatUserOverview} options={{
+                
+              }}/>  
               <Stack.Screen name = "MadDetaljer" component={MadDetaljer} options={{
                 gestureEnabled: true,
                 animationEnabled: true,
