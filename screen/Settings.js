@@ -57,13 +57,15 @@ export default function Settings() {
         value="true"
         status={ checked === 'true' ? 'checked' : 'unchecked' }
         onPress={() => setChecked('true')}
-        color="orange"
+        color="green"
       />
       <Text style={styles.privacyText}> Accepter</Text>
       <RadioButton
         value="false"
         status={ checked === 'false' ? 'checked' : 'unchecked' }
         onPress={() => setChecked('false')}
+        color="red"
+
       />
       <Text style={styles.privacyText}> Afvis</Text>
 
