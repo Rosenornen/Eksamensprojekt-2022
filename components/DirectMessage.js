@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, TextInput, StyleSheet } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import { auth, db, firebase } from "../firebase"
+import { View, Text, FlatList, TextInput, StyleSheet} from 'react-native';
+import { useRoute } from '@react-navigation/native';
+import { auth, firebase } from "../firebase"
 import { LinearGradient } from 'expo-linear-gradient';
 
 
@@ -11,6 +11,7 @@ function DirectMessage({}) {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
   const messagesRef = firebase.database().ref(`Messages/${uid}}`);
+  const [users, setUsers] = useState([]);
 
 
   useEffect(() => {
@@ -22,11 +23,33 @@ function DirectMessage({}) {
       console.log(messages + " besked")
       messagesRef
       .orderByChild('recipient')
-      .equalTo(item?.Id_)
+      .equalTo(uid)
       .on('value', snapshot => {
         messages = {...messages, ...snapshot.val()};
         setMessages(messages);
       });
+    });
+  }, []);
+
+  useEffect(() => {
+    const userRef = 
+    firebase
+    .database()
+    .ref('User');
+    userRef.on('value', snapshot => {
+      const users = snapshot.val();
+      setUsers(users);
+    });
+  }, []);
+
+  useEffect(() => {
+    const messageRef = 
+    firebase
+    .database()
+    .ref('Messages');
+    messageRef.on('value', snapshot => {
+      const message = snapshot.val();
+      setMessage(message);
     });
   }, []);
 
@@ -47,15 +70,23 @@ function DirectMessage({}) {
     start={{ x: 1, y: 0 }}
     end={{ x: 1, y: 1 }}>
         <View style={styles.container}>
-          <Text>Du chatter nu med; {} </Text>
-      <FlatList
-        data={Object.values(messages?.items || {})}
-        // Convert object to array
+        <FlatList
+        data={Object.values(users)}  // Convert object to array
         renderItem={({ item }) => (
-          <Text style={styles.message}>
-            {item.sender}: {item.message}
-          </Text>
+            <Text style={styles.fullName}>{"Du chatter nu med: " + item.fullName}</Text>
         )}
+        keyExtractor={item => item.email}
+      />
+      <FlatList
+        data={Object.values(messages || {})}
+        // Convert object to array
+        renderItem={({item }) => (
+          <Text style={styles.message}>
+            {item.message + " fra " + item.sender}
+          </Text>
+          
+        )}
+        keyExtractor = {item => item.message}
       />
       <TextInput
         style={styles.input}
@@ -71,19 +102,20 @@ function DirectMessage({}) {
 }
 
 const styles = StyleSheet.create({
-    LinearGradient: {
-        flex: 1,
-        justifyContent: 'center',
-        padding: 10
-      },
-    container: {
+  LinearGradient: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 10
+  },
+  container: {
     flex: 1,
     backgroundColor: 'transparent',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   message: {
-    fontSize: 20,
+    fontSize: 15,
+
   },
   input: {
     height: 40,
@@ -92,6 +124,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
   },
+  fullName: {
+    fontSize: 15
+  }
 });
 
 export default DirectMessage;
