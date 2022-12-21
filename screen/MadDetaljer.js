@@ -55,6 +55,7 @@ return (
   end={{ x: 1, y: 1 }}>
  <View style={styles.container}>
       <Text style = {styles.textDisplay}>Hvem: {food.hvem}</Text> 
+  
       <Text style = {styles.textDisplay}>Hvor: {food.hvor}</Text>
       <Text style = {styles.textDisplay}>Hvad: {food.hvad}</Text>
       <Text style = {styles.textDisplay}>Afhentningstidspunkt: {food.afhentningstidspunkt}</Text>
@@ -64,7 +65,7 @@ return (
 )}
 <Button
   disabled={food.reserved}
-  title={food.reserved ? "Reserved" : "Reserve"}
+  title={food.reserved ? "Reserved" : "Reserver"}
   onPress={() => {
     toggleReserved();
     Alert.alert(
@@ -81,7 +82,7 @@ return (
     <TextInput
       value={newAfhentningstidspunkt}
       onChangeText={text => setNewAfhentningstidspunkt(text)}
-      placeholder="Enter new afhentningstidspunkt"
+      placeholder="Indtast nyt afhentningstidspunkt"
     />
     <Button title="Update" onPress={() => {
       // Perform update operation here
@@ -133,17 +134,19 @@ const styles = StyleSheet.create({
       flex: 1, 
       justifyContent: "center",
       alignItems: "center",
-      marginTop: 120
+      marginTop: 80
      },
     image: {
-        width: 180,
-        height: 180,
-        margin: 10
+        width: 200,
+        height: 200,
+        margin: 10,
+        borderRadius: 10,
       },
     textDisplay: {
         alignContent: "center",
         margin: 10,
-        fontSize: 20
+        fontSize: 20,
+        fontWeight: "bold"
     }
 });
 
