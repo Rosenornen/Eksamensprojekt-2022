@@ -10,17 +10,14 @@ function DirectMessage({}) {
   const { uid } = route.params;
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
-  const messagesRef = firebase.database().ref(`Messages/${uid}}`);
+  const messagesRef = firebase.database().ref(`Messages/${uid}`);
   const [users, setUsers] = useState([]);
 
 
   useEffect(() => {
     messagesRef
-    .orderByChild('sender')
-    .equalTo(auth.currentUser?.uid)
     .on('value', snapshot => {
       let messages = snapshot.val();
-      console.log(messages + " besked")
       messagesRef
       .orderByChild('recipient')
       .equalTo(uid)
@@ -32,34 +29,29 @@ function DirectMessage({}) {
   }, []);
 
   useEffect(() => {
-    const userRef = 
-    firebase
-    .database()
-    .ref('User');
-    userRef.on('value', snapshot => {
+    const userRef = firebase.database().ref('User');
+    userRef.on('value', (snapshot) => {
       const users = snapshot.val();
       setUsers(users);
     });
   }, []);
+  
 
   useEffect(() => {
-    const messageRef = 
-    firebase
-    .database()
-    .ref('Messages');
-    messageRef.on('value', snapshot => {
-      const message = snapshot.val();
-      setMessage(message);
+    messagesRef.on('value', (snapshot) => {
+      const messages = snapshot.val();
+      setMessages(messages);
     });
   }, []);
+  
 
   function handleSendMessage() {
       messagesRef.push({
         sender: auth.currentUser?.uid,
         message,
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        recepient: uid
       });
-      console.log(message)
     setMessage('');
   }
 
@@ -77,17 +69,22 @@ function DirectMessage({}) {
         )}
         keyExtractor={item => item.email}
       />
-      <FlatList
-        data={Object.values(messages || {})}
-        // Convert object to array
-        renderItem={({item }) => (
-          <Text style={styles.message}>
-            {item.message + " fra " + item.sender}
-          </Text>
-          
-        )}
-        keyExtractor = {item => item.message}
-      />
+    <FlatList
+      data={Object.values(messages || {})}
+      renderItem={({item }) => {
+        if (item.sender) {
+          const user = users[item.sender];
+          return (
+            <Text style={styles.message}>
+              {user.fullName}: {item.message}
+            </Text>
+          );
+        }
+        return null;
+      }}
+      keyExtractor = {item => item.message}
+    />
+
       <TextInput
         style={styles.input}
         value={message}
