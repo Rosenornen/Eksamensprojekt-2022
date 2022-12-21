@@ -15,7 +15,7 @@ const data = [
   { label: 'Konserves', value: '8' },
 ];
 
-function UploadContext() {
+function UploadContext(navigation) {
     const [hvem, setHvem] = useState('');
     const [hvor, setHvor] = useState('');
     const [hvad, setHvad] = useState('');
@@ -70,6 +70,7 @@ function UploadContext() {
 
 
       Alert.alert(`Saved`);;
+      navigation.navigate('BottomStack');
       setHvem('')
       setHvor('')
       setHvad('')
@@ -179,7 +180,8 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     margin: 10,
-    marginBottom: -60
+    marginBottom: -60,
+    borderRadius: 10
   },
   header: {
     fontSize: 40,

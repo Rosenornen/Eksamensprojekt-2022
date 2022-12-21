@@ -51,7 +51,13 @@ const MadListe = ({navigation}) => {
                 return(
                     <TouchableOpacity style={styles.foodItem} onPress={() => handleSelectFood(foodKeys[index])}>
                         <Text style={styles.madPåDisplay}>
-                             {item.hvem}   {item.hvor}   {item.hvad}
+                             Hvad tid: {item.afhentningstidspunkt}
+                        </Text>
+                        <Text style={styles.madPåDisplay}>
+                             Hvor bor Nabo: {item.hvor}
+                        </Text>
+                        <Text style={styles.madPåDisplay}>
+                             Hvilken madvare:{item.hvad}
                         </Text>
                         {item.image && (
         <Image source={{ uri: item.image }} style={styles.image} />
@@ -86,6 +92,7 @@ const styles = StyleSheet.create({
     },
     madPåDisplay:{
         fontWeight: "bold",
+        marginLeft: 70,
     },
     foodItem: {
         flex: 1,
@@ -102,7 +109,7 @@ const styles = StyleSheet.create({
     image: {
         width: 60,
         height: 60,
-        margin: 10,
+        margin: 20,
         position: 'absolute',
         right: "70%",
         borderRadius: 50
