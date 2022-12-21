@@ -22,7 +22,7 @@ function DirectMessage({}) {
       console.log(messages + " besked")
       messagesRef
       .orderByChild('recipient')
-      .equalTo(auth.currentUser?.uid)
+      .equalTo(item?.Id_)
       .on('value', snapshot => {
         messages = {...messages, ...snapshot.val()};
         setMessages(messages);
@@ -34,7 +34,7 @@ function DirectMessage({}) {
       messagesRef.push({
         sender: auth.currentUser?.uid,
         message,
-        timestamp: Date.now(),
+        timestamp: Date.now()
       });
       console.log(message)
     setMessage('');
