@@ -1,7 +1,19 @@
 import React, { useState } from 'react';
 import { View, TextInput, Image, Button, StyleSheet, Alert, Text } from 'react-native';
 import * as ImagePicker from "expo-image-picker";
-import { auth, db, firebase } from "../firebase"
+import { auth, firebase } from "../firebase"
+import {Dropdown} from 'react-native-element-dropdown';
+
+const data = [
+  { label: 'Drikkevarer', value: '1' },
+  { label: 'Kød', value: '2' },
+  { label: 'Frugt & Grønt', value: '3' },
+  { label: 'Fisk', value: '4' },
+  { label: 'Fjerkræ', value: '5' },
+  { label: 'Paste & Ris', value: '6' },
+  { label: 'Færdigretter', value: '7' },
+  { label: 'Konserves', value: '8' },
+];
 
 function UploadContext() {
     const [hvem, setHvem] = useState('');
@@ -108,11 +120,22 @@ function UploadContext() {
         placeholder="Hvornår"
         onChangeText={setAfhentningstidspunkt}
       />
-      <TextInput
-        style={styles.input}
-        value={madtype}
-        placeholder="Madtype"
-        onChangeText={setMadtype}
+       <Dropdown
+        style={styles.dropdown}
+        placeholderStyle={styles.placeholderStyle}
+        selectedTextStyle={styles.selectedTextStyle}
+        inputSearchStyle={styles.inputSearchStyle}
+        iconStyle={styles.iconStyle}
+        data={data}
+        search
+        maxHeight={150}
+        showsVerticalScrollIndicator="true"
+        labelField="label"
+        valueField="value"
+        placeholder="Vælg madtype"
+        searchPlaceholder="Søg..."
+        value={data}
+        onChange = {setMadtype}
       />
       <Button title="Select Image" onPress={selectImage} />
       {image && (
@@ -148,7 +171,26 @@ const styles = StyleSheet.create({
   info: {
     fontSize: 20,
     padding: 5
-  }
+  },
+  dropdown: {
+    margin: 15,
+    height: 50,
+    width: 200,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 1,
+  },
+  placeholderStyle: {
+    fontSize: 13,
+  },
+  selectedTextStyle: {
+    fontSize: 12,
+  },
+  inputSearchStyle: {
+    height: 30,
+    fontSize: 12,
+    borderRadius: 4,
+  },
 });
 
 export default UploadContext;

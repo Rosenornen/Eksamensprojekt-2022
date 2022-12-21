@@ -34,7 +34,7 @@ const MadDetaljer = ({route,navigation}) => {
             <Text style = {styles.textDisplay}>Hvor: {food.hvor}</Text>
             <Text style = {styles.textDisplay}>Hvad: {food.hvad}</Text>
             <Text style = {styles.textDisplay}>Afhentningstidspunkt: {food.afhentningstidspunkt}</Text>
-            <Text style = {styles.textDisplay}>Madtype: {food.madtype}</Text>
+            <Text style = {styles.textDisplay}>Madtype: {food.madtype?.label}</Text>
             {food.image && (
         <Image source={{ uri: food.image }} style={styles.image} />
       )}
