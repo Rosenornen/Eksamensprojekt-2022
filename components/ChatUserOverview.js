@@ -26,7 +26,7 @@ function ChatUserOverview() {
           <TouchableOpacity
             style={styles.userItem}
             onPress={() =>
-              navigation.navigate('DirectChat', { uid: item.uid })
+              navigation.navigate('DirectMessage', { uid: item.uid })
             }
           >
             <Text style={styles.fullName}>{item.fullName}</Text>
