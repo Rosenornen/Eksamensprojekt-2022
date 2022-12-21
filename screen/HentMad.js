@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, Text, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, Text, FlatList, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import firebase from 'firebase';
 import {useEffect, useState} from "react";
 import { LinearGradient } from 'expo-linear-gradient';
@@ -51,8 +51,11 @@ const MadListe = ({navigation}) => {
                 return(
                     <TouchableOpacity style={styles.foodItem} onPress={() => handleSelectFood(foodKeys[index])}>
                         <Text>
-                             {item.hvem}   {item.hvor}   {item.hvad}  {item.Id_}
+                             {item.hvem}   {item.hvor}   {item.hvad}
                         </Text>
+                        {item.image && (
+        <Image source={{ uri: item.image }} style={styles.image} />
+      )}
                     </TouchableOpacity>
                 )
             }}
@@ -87,8 +90,14 @@ const styles = StyleSheet.create({
         borderRadius:10,
         margin: 5,
         padding: 5,
-        height: 50,
+        height: 100,
         justifyContent:'center'
     },
     label: { fontWeight: 'bold' },
+    image: {
+        width: 50,
+        height: 50,
+        margin: 10,
+        alignItems: 'center'
+    }
 });
