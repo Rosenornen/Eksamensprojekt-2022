@@ -23,8 +23,7 @@ export default function Home() {
     start={{ x: 1, y: 0 }}
     end={{ x: 1, y: 1 }}>
       <View style={styles.container}>
-      <Text style={styles.label}>Current user:</Text> 
-      <Text style={styles.fullName}>{fullName}</Text>
+      <Text style={styles.label}>Current user:</Text> <Text style={styles.fullName}>{fullName}</Text>
       </View>
     </LinearGradient>
   )
@@ -37,8 +36,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   container:{
-    flex: 1, 
-    marginTop: 140
+    flex: 1
   },
   overskrift:{
     top: "20%",
