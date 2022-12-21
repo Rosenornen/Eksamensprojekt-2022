@@ -91,13 +91,13 @@ const styles = StyleSheet.create({
         margin: 5,
         padding: 5,
         height: 100,
-        justifyContent:'center'
+        justifyContent:'center',
+        alignItems: 'center'
     },
     label: { fontWeight: 'bold' },
     image: {
         width: 50,
         height: 50,
-        margin: 10,
-        alignItems: 'center'
+        margin: 10
     }
 });

@@ -12,33 +12,50 @@ function UploadContext() {
     const [image, setImage] = useState(null);
     const Id_ = auth.currentUser?.uid
 
-  function uploadData() {
-    if (!hvem || !hvor || !hvad || !afhentningstidspunkt || !madtype || !image ) {
-      // Display an error if the text or image is not set
-      return Alert.alert('Alle Felter skal udfyldes')
+    async function uploadData() {
+      if (!hvem || !hvor || !hvad || !afhentningstidspunkt || !madtype || !image ) {
+        // Display an error if the text or image is not set
+        return Alert.alert('Alle Felter skal udfyldes')
+      }
+  
+      // Create a storage reference
+      const storageRef = firebase.storage().ref();
+  
+      // Create a reference to the file in Cloud Storage
+      const fileRef = storageRef.child(`images/${image}`);
+  
+      // Retrieve the image data
+      const response = await fetch(image);
+      const data = await response.blob();
+  
+      // Upload the file to Cloud Storage
+      await fileRef.put(data);
+  
+      // Get the download URL for the file
+      const downloadURL = await fileRef.getDownloadURL();
+  
+      // Write the data to the Firebase Realtime Database
+      firebase
+        .database()
+        .ref('/MadTilAfhentning/')
+        .push({
+          hvem,
+          hvor,
+          hvad,
+          afhentningstidspunkt,
+          madtype,
+          image: downloadURL,
+          Id_
+        })
+      Alert.alert(`Saved`);;
+      setHvem('')
+      setHvor('')
+      setHvad('')
+      setAfhentningstidspunkt('')
+      setMadtype('')
+      setImage(null)
     }
-
-    // Write the data to the Firebase Realtime Database
-    firebase
-      .database()
-      .ref('/MadTilAfhentning/')
-      .push({
-        hvem,
-        hvor,
-        hvad,
-        afhentningstidspunkt,
-        madtype,
-        image,
-        Id_
-      })
-    Alert.alert(`Saved`);;
-    setHvem('')
-    setHvor('')
-    setHvad('')
-    setAfhentningstidspunkt('')
-    setMadtype('')
-    setImage(null)
-  }
+  
 
   async function selectImage() {
     const options = {
