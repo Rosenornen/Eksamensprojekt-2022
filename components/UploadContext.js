@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Image, Button, StyleSheet, Alert } from 'react-native';
+import { View, TextInput, Image, Button, StyleSheet, Alert, Text } from 'react-native';
 import * as ImagePicker from "expo-image-picker";
 import { auth, db, firebase } from "../firebase"
 
@@ -63,7 +63,10 @@ function UploadContext() {
   }
 
   return (
-    <View style={styles.container}>
+  
+   <View style={styles.container}>
+      <Text style = {styles.header}>Giv mad</Text>
+      <Text style = {styles.info}>Udfyld felterne nedenfor</Text>
       <TextInput
         style={styles.input}
         value={hvem}
@@ -110,8 +113,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   input: {
-    width: 100,
-    height: 25,
+    width: 225,
+    height: 30,
     borderColor: 'gray',
     borderWidth: 1,
     margin: 10
@@ -120,6 +123,14 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     margin: 10
+  },
+  header: {
+    fontSize: 40,
+    padding: 10
+  },
+  info: {
+    fontSize: 20,
+    padding: 5
   }
 });
 
