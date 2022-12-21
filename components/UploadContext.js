@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Image, Button, StyleSheet } from 'react-native';
+import { View, TextInput, Image, Button, StyleSheet, Alert, Text } from 'react-native';
 import * as ImagePicker from "expo-image-picker";
 import { auth, db, firebase } from "../firebase"
 
@@ -10,22 +10,34 @@ function UploadContext() {
     const [afhentningstidspunkt, setAfhentningstidspunkt] = useState('');
     const [madtype, setMadtype] = useState('');
     const [image, setImage] = useState(null);
+    const Id_ = auth.currentUser?.uid
 
   function uploadData() {
     if (!hvem || !hvor || !hvad || !afhentningstidspunkt || !madtype || !image ) {
       // Display an error if the text or image is not set
-      return;
+      return Alert.alert('Alle Felter skal udfyldes')
     }
 
     // Write the data to the Firebase Realtime Database
-    firebase.database().ref('/MadTilAfhentning/' + auth.currentUser?.uid).set({
-    hvem,
-    hvor,
-    hvad,
-    afhentningstidspunkt,
-    madtype,
-    image
-    });
+    firebase
+      .database()
+      .ref('/MadTilAfhentning/')
+      .push({
+        hvem,
+        hvor,
+        hvad,
+        afhentningstidspunkt,
+        madtype,
+        image,
+        Id_
+      })
+    Alert.alert(`Saved`);;
+    setHvem('')
+    setHvor('')
+    setHvad('')
+    setAfhentningstidspunkt('')
+    setMadtype('')
+    setImage(null)
   }
 
   async function selectImage() {
@@ -51,7 +63,10 @@ function UploadContext() {
   }
 
   return (
-    <View style={styles.container}>
+  
+   <View style={styles.container}>
+      <Text style = {styles.header}>Giv mad</Text>
+      <Text style = {styles.info}>Udfyld felterne nedenfor</Text>
       <TextInput
         style={styles.input}
         value={hvem}
@@ -98,8 +113,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   input: {
-    width: 100,
-    height: 25,
+    width: 225,
+    height: 30,
     borderColor: 'gray',
     borderWidth: 1,
     margin: 10
@@ -108,6 +123,14 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     margin: 10
+  },
+  header: {
+    fontSize: 40,
+    padding: 10
+  },
+  info: {
+    fontSize: 20,
+    padding: 5
   }
 });
 
