@@ -50,8 +50,7 @@ export default function Home() {
         <Text style={styles.orderCountCO2}>Du har sparet {orderCount * 1.25} KG CO2</Text>
     end={{ x: 1, y: 1 }}>
       <View style={styles.container}>
-      <Text style={styles.label}>Current user:</Text> 
-      <Text style={styles.fullName}>{fullName}</Text>
+      <Text style={styles.label}>Current user:</Text> <Text style={styles.fullName}>{fullName}</Text>
       </View>
     </View>
   </LinearGradient>
@@ -78,8 +77,7 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderWidth: 1
   container:{
-    flex: 1, 
-    marginTop: 140
+    flex: 1
   },
   overskrift:{
     top: "20%",
