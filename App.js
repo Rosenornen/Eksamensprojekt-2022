@@ -16,6 +16,7 @@ import {AntDesign, MaterialIcons, Ionicons, FontAwesome, FontAwesome5} from "@ex
 import Chat from './screen/Chat';
 import MadDetaljer from './screen/MadDetaljer';
 
+
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -119,7 +120,7 @@ export default function App() {
               }}/>  
               <Stack.Screen name = "ChatUserOverview" component={ChatUserOverview} options={{
                 
-              }}/>  
+              }}/>   
               <Stack.Screen name = "MadDetaljer" component={MadDetaljer} options={{
                 gestureEnabled: true,
                 animationEnabled: true,
