@@ -52,43 +52,33 @@ export default function Settings({navigation, route}) {
     };
 }, []);
 
-  const changeTextInput = (name,event) => {
-    setNewUser({...newUser, [name]: event});
-  }  
 
-  const handleSave = () => {
+  const [fullName, setFullName] = useState('');
+  const [home, setHome] = useState('');
+  const [homegroup, setHomegroup] = useState('');
+  const email = auth.currentUser?.email;
+  const Id_ = auth.currentUser?.uid;
 
-    const { Id_, email, homegroup, home, fullName} = newUser;
-
-    if(Id_ === auth.currentUser?.uid, email === auth.currentUser?.email, homegroup.length === 0, home.length === 0, fullName.length === 0){
-      return Alert.alert('Alle felter skal udfyldes')
+  function uploadData() {
+    if (!home || !fullName || !homegroup || !email || !Id_) {
+      // Display an error if the text or image is not set
+      return Alert.alert('Alle Felter skal udfyldes');
     }
-    if(isEditUser){
-      const id = Id_;
-      try{
-        firebase
-          .database()
-          .ref(`/User/${id}`)
-          .update({ homegroup, home, fullName});
-        Alert.alert('Din info er blevet opdateret');
-        const user = [id, newUser];
-        navigation.navigate('User Details', {user});
-      } catch(error) {
-        console.log(`Error: ${error.message}`)
-      }
-    } else {
-      try {
-        firebase
-          .database()
-          .ref('/User/')
-          .push({email, Id_, homegroup, home, fullName})
-        Alert.alert(`Saved`);
-        setNewUser(initialState)
-      } catch(error) {
-        console.log(`Error: ${error.message}`)
-      }
-    }
+
+    // Write the data to the Firebase Realtime Database
+    firebase.database().ref('/User/' + auth.currentUser?.uid).set({
+      home,
+      fullName,
+      homegroup,
+      email,
+      Id_
+    });
+    Alert.alert(`Saved`);;
+    setFullName('')
+    setHome('')
+    setHomegroup('')
   }
+
 
   const [checked, setChecked] = React.useState('true');
   
@@ -121,7 +111,7 @@ export default function Settings({navigation, route}) {
         placeholder="Find dit lokalområde"
         searchPlaceholder="Søg..."
         value={data}
-        onChange = {(event) => changeTextInput('homegroup', event)}
+        onChange = {setHomegroup}
         renderLeftIcon={() => (
           <Ionicons style={styles.icon} color="black" name="home" size={20} />
         )}
@@ -129,14 +119,14 @@ export default function Settings({navigation, route}) {
       <View style={styles.textInputContainer}>
       <TextInput
         style={styles.input}
-        onChangeText={(event) => changeTextInput('fullName', event)}
-        value={newUser.fullName}
+        onChangeText={setFullName}
+        value={fullName}
         placeholder="Indsæt dit navn, så dine naboer kan kende dig"
       />
       <TextInput
         style={styles.input}
-        onChangeText={(event) => changeTextInput('home', event)}
-        value={newUser.home}
+        onChangeText= {setHome}
+        value={home}
         placeholder="Din adresse indenfor dit lokalområde"
       />
       </View>
@@ -161,7 +151,7 @@ export default function Settings({navigation, route}) {
 
           <View style={styles.buttonContainer}>
           <Pressable style={styles.logudButton} onPress={handleSignOut}><Text style={styles.logudText}>Log ud</Text></Pressable>
-          <Pressable style={styles.saveButton} onPress={() => handleSave()}><Text style={styles.saveText}>Gem indhold</Text></Pressable>
+          <Pressable style={styles.saveButton} onPress={() => uploadData()}><Text style={styles.saveText}>Gem indhold</Text></Pressable>
           </View>
           
 
