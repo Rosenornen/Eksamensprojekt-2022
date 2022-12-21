@@ -4,7 +4,7 @@ import { auth } from '../firebase';
 import { db } from '../firebase';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native'
-import Dashboard from '../components/Dashboard';
+
 
 export default function Home() {  
   
@@ -18,7 +18,6 @@ export default function Home() {
       style={styles.LinearGradient}
       start={{ x: 1, y: 0 }}
       end={{ x: 1, y: 1 }}>
-        <Dashboard/>
       </LinearGradient>
     )
   }
