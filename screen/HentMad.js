@@ -91,14 +91,18 @@ const styles = StyleSheet.create({
         margin: 5,
         padding: 5,
         height: 100,
-        width: 400,
+        width: 300,
         justifyContent:'center',
         alignItems: 'center'
     },
     label: { fontWeight: 'bold' },
     image: {
-        width: 50,
-        height: 50,
-        margin: 10
+        width: 60,
+        height: 60,
+        margin: 10,
+        position: 'absolute',
+        right: "70%",
+        borderRadius: 50
+        
     }
 });

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Image, Button, StyleSheet, Alert, Text } from 'react-native';
+import { View, TextInput, Image, Button, StyleSheet, Alert, Text, Pressable } from 'react-native';
 import * as ImagePicker from "expo-image-picker";
 import { auth, firebase } from "../firebase"
 import {Dropdown} from 'react-native-element-dropdown';
@@ -137,11 +137,15 @@ function UploadContext() {
         value={data}
         onChange = {setMadtype}
       />
-      <Button title="Select Image" onPress={selectImage} />
+      <View style={styles.buttonsContainer}>
+              <Pressable style={styles.UploadBillede} onPress={selectImage}><Text style={styles.UploadText}>Upload dit billede</Text></Pressable>
+
+              <Pressable style={styles.UploadForm} onPress={uploadData}><Text style={styles.UploadText}>Send, tryk 1 gang</Text></Pressable>
+      </View>
+
       {image && (
         <Image source={{ uri: image }} style={styles.image} />
       )}
-      <Button title="Upload" onPress={uploadData} />
     </View>
   );
 }
@@ -160,9 +164,10 @@ const styles = StyleSheet.create({
     margin: 10
   },
   image: {
-    width: 200,
-    height: 200,
-    margin: 10
+    width: 100,
+    height: 100,
+    margin: 10,
+    marginBottom: -60
   },
   header: {
     fontSize: 40,
@@ -171,6 +176,24 @@ const styles = StyleSheet.create({
   info: {
     fontSize: 20,
     padding: 5
+  },
+  buttonsContainer:{
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  UploadForm:{
+    backgroundColor: "lightgreen",
+    borderRadius: 3,
+    padding: 10
+  },
+  UploadBillede:{
+    backgroundColor: "orange",
+    borderRadius: 3,
+    marginRight: 10,
+    padding: 10
+  },
+  UploadText:{
+    fontWeight: "bold"
   },
   dropdown: {
     margin: 15,
