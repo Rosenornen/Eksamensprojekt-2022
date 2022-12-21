@@ -4,8 +4,9 @@ import React from 'react'
 import { auth } from '../firebase';
 import { db } from '../firebase';
 import { LinearGradient } from 'expo-linear-gradient';
+
 import ChatOverview from '../components/ChatFunction';
-import ChatUserOverview from '../components/ChatUserOverview';
+//import ChatUserOverview from '../components/ChatUserOverview';
 
 function Chat() {
     return (
@@ -14,8 +15,7 @@ function Chat() {
         style={styles.LinearGradient}
         start={{ x: 1, y: 0 }}
         end={{ x: 1, y: 1 }}>
-        <ChatUserOverview/>
-
+          <ChatOverview/>
       </LinearGradient>
     )
 }

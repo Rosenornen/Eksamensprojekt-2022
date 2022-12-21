@@ -10,7 +10,7 @@ import Settings from './screen/Settings';
 import HentMad from './screen/HentMad';
 import GivMad from './screen/GivMad';
 import ChatUserOverview from './components/ChatUserOverview';
-import DirectChat from './screen/DirectChat';
+import DirectChat from './components/DirectChat';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {AntDesign, MaterialIcons, Ionicons, FontAwesome, FontAwesome5} from "@expo/vector-icons";
 import Chat from './screen/Chat';

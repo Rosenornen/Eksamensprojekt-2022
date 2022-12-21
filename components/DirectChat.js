@@ -1,31 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, TextInput, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { auth, db, firebase } from "../firebase"
-import ChatUserOverview from '../components/ChatUserOverview';
+import { LinearGradient } from 'expo-linear-gradient';
 
-function DirectChat() {
+function DirectChat({}) {
+    const { uid } = route.params;
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
   const navigation = useNavigation();
-  const fullName = navigation.getParam('fullName');
-  const messagesRef = firebase.
-  database()
-  .ref(`messages/${fullName}`);
+  console.log(navigation +" direktechat")
+  const messagesRef = firebase.database().ref(`Messages/${uid}}`);
 
   useEffect(() => {
-    messagesRef.on('value', snapshot => {
-      const messages = snapshot.val();
+    messagesRef.orderByChild('sender').equalTo(auth.currentUser?.uid).on('value', snapshot => {
+      let messages = snapshot.val();
       console.log(messages)
-      setMessages(messages);
+      messagesRef.orderByChild('recipient').equalTo(auth.currentUser?.uid).on('value', snapshot => {
+        messages = {...messages, ...snapshot.val()};
+        setMessages(messages);
+      });
     });
   }, []);
 
   function handleSendMessage() {
     messagesRef.push({
-      sender: 'me',
+      sender: auth.currentUser?.uid,
       message,
       timestamp: Date.now(),
+      recipient: uid,
     });
     setMessage('');
   }
@@ -38,7 +41,8 @@ function DirectChat() {
     end={{ x: 1, y: 1 }}>
         <View style={styles.container}>
       <FlatList
-        data={Object.values(messages)}  // Convert object to array
+        data={Object.values(messages?.items || {})}
+        // Convert object to array
         renderItem={({ item }) => (
           <Text style={styles.message}>
             {item.sender}: {item.message}
@@ -65,7 +69,7 @@ const styles = StyleSheet.create({
       },
     container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'transparent',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -75,14 +79,13 @@ const styles = StyleSheet.create({
   input: {
     height: 40,
     width: '100%',
-    borderColor: 'gray',
+    borderColor: 'grey',
     borderWidth: 1,
     padding: 10,
   },
 });
 
 export default DirectChat;
-
 
 
 

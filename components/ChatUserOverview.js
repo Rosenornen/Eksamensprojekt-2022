@@ -14,7 +14,6 @@ function ChatUserOverview() {
     .ref('User');
     userRef.on('value', snapshot => {
       const users = snapshot.val();
-      console.log(users);  
       setUsers(users);
     });
   }, []);
@@ -27,7 +26,7 @@ function ChatUserOverview() {
           <TouchableOpacity
             style={styles.userItem}
             onPress={() =>
-              navigation.navigate('DirectChat', { fullName: item.fullName })
+              navigation.navigate('DirectChat', { uid: item.uid })
             }
           >
             <Text style={styles.fullName}>{item.fullName}</Text>
