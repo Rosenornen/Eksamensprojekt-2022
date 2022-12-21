@@ -82,7 +82,7 @@ function DirectMessage({}) {
         // Convert object to array
         renderItem={({item }) => (
           <Text style={styles.message}>
-            {item.message}
+            {item.message + " fra " + item.sender}
           </Text>
           
         )}
