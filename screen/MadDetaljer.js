@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, Platform, FlatList, StyleSheet, Button, Alert } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import firebase from 'firebase';
 import {useEffect, useState} from "react";
 import { LinearGradient } from 'expo-linear-gradient';
@@ -30,18 +30,14 @@ const MadDetaljer = ({route,navigation}) => {
         start={{ x: 1, y: 0 }}
         end={{ x: 1, y: 1 }}>
        <View style={styles.container}>
-            {
-                Object.entries(food).map((item,index)=>{
-                    return(
-                        <View style={styles.row} key={index}>
-                            {/*Vores food keys navn*/}
-                            <Text style={styles.label}>{item[0]} </Text>
-                            {/*Vores food values navne */}
-                            <Text style={styles.value}>{item[1]}</Text>
-                        </View>
-                    )
-                })
-            }
+            <Text style = {styles.textDisplay}>Hvem: {food.hvem}</Text> 
+            <Text style = {styles.textDisplay}>Hvor: {food.hvor}</Text>
+            <Text style = {styles.textDisplay}>Hvad: {food.hvad}</Text>
+            <Text style = {styles.textDisplay}>Afhentningstidspunkt: {food.afhentningstidspunkt}</Text>
+            <Text style = {styles.textDisplay}>Madtype: {food.madtype}</Text>
+            {food.image && (
+        <Image source={{ uri: food.image }} style={styles.image} />
+      )}
         </View>
         </LinearGradient>
     );
@@ -58,18 +54,15 @@ const styles = StyleSheet.create({
       justifyContent: 'flex-start',
       marginTop: 120
      },
-    row: {
-        margin: 5,
-        padding: 5,
-        flexDirection: 'row',
-    },
-    label: { 
-      width: 100, 
-      fontWeight: 'bold'
-    },
-    value: { 
-      flex: 1 
-    },
+    image: {
+        width: 200,
+        height: 200,
+        margin: 10
+      },
+    textDisplay: {
+        margin: 10,
+        fontSize: 20
+    }
 });
 
 export default MadDetaljer;
