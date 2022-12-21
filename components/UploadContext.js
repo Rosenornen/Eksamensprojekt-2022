@@ -19,6 +19,8 @@ function UploadContext() {
     const [hvem, setHvem] = useState('');
     const [hvor, setHvor] = useState('');
     const [hvad, setHvad] = useState('');
+    const [reserved, setReserved] = useState('');
+    const [userwhoreserved, setUserWhoReserved] = useState('');
     const [afhentningstidspunkt, setAfhentningstidspunkt] = useState('');
     const [madtype, setMadtype] = useState('');
     const [image, setImage] = useState(null);
@@ -47,9 +49,9 @@ function UploadContext() {
       const downloadURL = await fileRef.getDownloadURL();
   
       // Write the data to the Firebase Realtime Database
-      firebase
+      const newDataRef = firebase
         .database()
-        .ref('/MadTilAfhentning/')
+        .ref(`MadTilAfhentning/`)
         .push({
           hvem,
           hvor,
@@ -57,8 +59,16 @@ function UploadContext() {
           afhentningstidspunkt,
           madtype,
           image: downloadURL,
-          Id_
+          Id_,
+          reserved,
+          userwhoreserved
         })
+
+    const uniqueId = newDataRef.key;
+
+    newDataRef.update({ id: uniqueId });
+
+
       Alert.alert(`Saved`);;
       setHvem('')
       setHvor('')
@@ -66,6 +76,8 @@ function UploadContext() {
       setAfhentningstidspunkt('')
       setMadtype('')
       setImage(null)
+      setUserWhoReserved('')
+      setReserved('')
     }
   
 

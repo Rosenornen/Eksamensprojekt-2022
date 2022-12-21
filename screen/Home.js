@@ -21,7 +21,7 @@ export default function Home() {
         // Make sure the user object is not null
         if (user) {
           setFullName(user.fullName);
-          console.log(fullName); // print the value of fullName to the console
+          console.log(userId); // print the value of fullName to the console
         }
       });
     }
@@ -34,7 +34,7 @@ export default function Home() {
     start={{ x: 1, y: 0 }}
     end={{ x: 1, y: 1 }}>
       <View style={styles.container}>
-        <Text style={styles.overskrift}>VELKOMMEN TILBAGE {fullName} </Text>
+        <Text style={styles.overskrift}>VELKOMMEN TILBAGE {userId} </Text>
       </View>
     </LinearGradient>
   )

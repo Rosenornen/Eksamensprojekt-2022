@@ -1,26 +1,34 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
-import firebase from 'firebase';
+import { View, Text, StyleSheet, Image, Button} from 'react-native';
+import { auth, db, firebase } from "../firebase"
 import {useEffect, useState} from "react";
 import { LinearGradient } from 'expo-linear-gradient';
 
 const MadDetaljer = ({route,navigation}) => {
-    const [food,setFood] = useState({});
+  const [food,setFood] = useState({});
+  const [reserved, setReserved] = useState(false);
 
-    useEffect(() => {
-        /*Henter food values og sætter dem*/
-        setFood(route.params.food[1]);
+  useEffect(() => {
+      /*Henter food values og sætter dem*/
+      setFood(route.params.food[1]);
 
-        /*Når vi forlader screen, tøm object*/
-        return () => {
-            setFood({})
-        }
-    });
+      /*Når vi forlader screen, tøm object*/
+      return () => {
+          setFood({})
+      }
+  });
+///SKAL TILFØJES SÅ MAN KAN VÆLGE DET FOOD ID MAN ER INDE
+  const toggleReserved = () => {
+      firebase.database().ref(`MadTilAfhentning/`).update({
+          reserved: !reserved,
+          userwhoreserved: auth.currentUser?.uid
+      });
+      setReserved(!reserved);
+  }
 
-
-    if (!food) {
-        return <Text>No data</Text>;
-    }
+  if (!food) {
+      return <Text>No data</Text>;
+  }
 
     //all content
     return (
@@ -38,6 +46,7 @@ const MadDetaljer = ({route,navigation}) => {
             {food.image && (
         <Image source={{ uri: food.image }} style={styles.image} />
       )}
+      <Button title={reserved ? "Reserved" : "Reserve"} onPress={toggleReserved} />
         </View>
         </LinearGradient>
     );
