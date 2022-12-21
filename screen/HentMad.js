@@ -50,7 +50,7 @@ const MadListe = ({navigation}) => {
             renderItem={({ item, index }) => {
                 return(
                     <TouchableOpacity style={styles.foodItem} onPress={() => handleSelectFood(foodKeys[index])}>
-                        <Text>
+                        <Text style={styles.madPåDisplay}>
                              {item.hvem}   {item.hvor}   {item.hvad}
                         </Text>
                         {item.image && (
@@ -83,6 +83,9 @@ const styles = StyleSheet.create({
     empty: {
         justifyContent: 'center',
         marginTop: 120
+    },
+    madPåDisplay:{
+        fontWeight: "bold",
     },
     foodItem: {
         flex: 1,
