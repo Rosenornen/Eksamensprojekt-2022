@@ -7,17 +7,19 @@ import { useNavigation } from '@react-navigation/native'
 
 export default function Home() {  
   
+  const [users, setUsers] = useState([]);
   const [fullName, setFullName] = useState('');
 
   useEffect(() => {
-    const userId = firebase.auth().currentUser.uid;
-    firebase.database().ref(`/User/${userId}/fullName`).once('value')
-      .then(snapshot => {
-        setFullName(snapshot.val());
-      });
-      console.log(userId)
+    const userRef = 
+    firebase
+    .database()
+    .ref('User');
+    userRef.on('value', snapshot => {
+      const user = snapshot.val();
+      setFullName(user.fullName);
+    });
   }, []);
-
 
     return (
       <LinearGradient
@@ -26,7 +28,7 @@ export default function Home() {
       start={{ x: 1, y: 0 }}
       end={{ x: 1, y: 1 }}>
         <View style={styles.container}>
-            <Text style={styles.overskrift}>VELKOMMEN TILBAGE {fullName} </Text>
+          <Text style={styles.overskrift}>VELKOMMEN TILBAGE {fullName} </Text>
         </View>
       </LinearGradient>
     )
