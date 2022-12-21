@@ -70,7 +70,6 @@ function UploadContext(navigation) {
 
 
       Alert.alert(`Saved`);;
-      navigation.navigate('BottomStack');
       setHvem('')
       setHvor('')
       setHvad('')
