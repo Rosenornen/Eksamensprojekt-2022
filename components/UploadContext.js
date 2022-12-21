@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Image, Button, StyleSheet } from 'react-native';
+import { View, TextInput, Image, Button, StyleSheet, Alert } from 'react-native';
 import * as ImagePicker from "expo-image-picker";
 import { auth, db, firebase } from "../firebase"
 
@@ -10,22 +10,34 @@ function UploadContext() {
     const [afhentningstidspunkt, setAfhentningstidspunkt] = useState('');
     const [madtype, setMadtype] = useState('');
     const [image, setImage] = useState(null);
+    const Id_ = auth.currentUser?.uid
 
   function uploadData() {
     if (!hvem || !hvor || !hvad || !afhentningstidspunkt || !madtype || !image ) {
       // Display an error if the text or image is not set
-      return;
+      return Alert.alert('Alle Felter skal udfyldes')
     }
 
     // Write the data to the Firebase Realtime Database
-    firebase.database().ref('/MadTilAfhentning/' + auth.currentUser?.uid).set({
-    hvem,
-    hvor,
-    hvad,
-    afhentningstidspunkt,
-    madtype,
-    image
-    });
+    firebase
+      .database()
+      .ref('/MadTilAfhentning/')
+      .push({
+        hvem,
+        hvor,
+        hvad,
+        afhentningstidspunkt,
+        madtype,
+        image,
+        Id_
+      })
+    Alert.alert(`Saved`);;
+    setHvem('')
+    setHvor('')
+    setHvad('')
+    setAfhentningstidspunkt('')
+    setMadtype('')
+    setImage(null)
   }
 
   async function selectImage() {

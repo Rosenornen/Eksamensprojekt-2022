@@ -51,7 +51,7 @@ const MadListe = ({navigation}) => {
                 return(
                     <TouchableOpacity style={styles.foodItem} onPress={() => handleSelectFood(foodKeys[index])}>
                         <Text>
-                             {item.Hvem}   {item.Hvor}   {item.Hvad}  {item.Id_}
+                             {item.hvem}   {item.hvor}   {item.hvad}  {item.Id_}
                         </Text>
                     </TouchableOpacity>
                 )

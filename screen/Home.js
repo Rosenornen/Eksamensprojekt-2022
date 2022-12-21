@@ -18,7 +18,6 @@ export default function Home() {
       style={styles.LinearGradient}
       start={{ x: 1, y: 0 }}
       end={{ x: 1, y: 1 }}>
-      <UploadContext/>
       </LinearGradient>
     )
   }
