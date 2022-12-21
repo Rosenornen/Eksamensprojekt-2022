@@ -31,6 +31,7 @@ export default function Settings({navigation, route}) {
 
   const initialState = {
     Id_: auth.currentUser?.uid,
+    email: auth.currentUser?.email,
     homegroup: '',
     home: '',
     fullName: ''
@@ -57,9 +58,9 @@ export default function Settings({navigation, route}) {
 
   const handleSave = () => {
 
-    const { Id_, homegroup, home, fullName} = newUser;
+    const { Id_, email, homegroup, home, fullName} = newUser;
 
-    if(Id_ === auth.currentUser?.uid, homegroup.length === 0, home.length === 0, fullName.length === 0){
+    if(Id_ === auth.currentUser?.uid, email === auth.currentUser?.email, homegroup.length === 0, home.length === 0, fullName.length === 0){
       return Alert.alert('Alle felter skal udfyldes')
     }
     if(isEditUser){
@@ -68,7 +69,7 @@ export default function Settings({navigation, route}) {
         firebase
           .database()
           .ref(`/User/${id}`)
-          .update({homegroup, home, fullName});
+          .update({ homegroup, home, fullName});
         Alert.alert('Din info er blevet opdateret');
         const user = [id, newUser];
         navigation.navigate('User Details', {user});
@@ -80,7 +81,7 @@ export default function Settings({navigation, route}) {
         firebase
           .database()
           .ref('/User/')
-          .push({Id_, homegroup, home, fullName})
+          .push({email, Id_, homegroup, home, fullName})
         Alert.alert(`Saved`);
         setNewUser(initialState)
       } catch(error) {

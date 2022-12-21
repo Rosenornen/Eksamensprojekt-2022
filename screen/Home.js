@@ -1,16 +1,23 @@
 import {StyleSheet, Text, View, Button} from 'react-native'
-import React from 'react'
-import { auth } from '../firebase';
-import { db } from '../firebase';
+import React, { useState, useEffect } from 'react';
+import { auth, firebase } from '../firebase';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native'
 
 
 export default function Home() {  
   
-  
+  const [fullName, setFullName] = useState('');
 
-  const navigation = useNavigation()
+  useEffect(() => {
+    const userId = firebase.auth().currentUser.uid;
+    firebase.database().ref(`/User/${userId}/fullName`).once('value')
+      .then(snapshot => {
+        setFullName(snapshot.val());
+      });
+      console.log(userId)
+  }, []);
+
 
     return (
       <LinearGradient
@@ -18,6 +25,9 @@ export default function Home() {
       style={styles.LinearGradient}
       start={{ x: 1, y: 0 }}
       end={{ x: 1, y: 1 }}>
+        <View style={styles.container}>
+            <Text style={styles.overskrift}>VELKOMMEN TILBAGE {fullName} </Text>
+        </View>
       </LinearGradient>
     )
   }
@@ -27,5 +37,11 @@ export default function Home() {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
+    },
+    container:{
+      flex: 1
+    },
+    overskrift:{
+      top: "20%",
     }
   })
