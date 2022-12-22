@@ -6,6 +6,7 @@ import { firebase } from "../firebase"
 function ChatUserOverview() {
   const [users, setUsers] = useState([]);
   const navigation = useNavigation();
+  const [numUsers, setNumUsers] = useState(0);
 
   useEffect(() => {
     const userRef = 
@@ -15,6 +16,15 @@ function ChatUserOverview() {
     userRef.on('value', snapshot => {
       const users = snapshot.val();
       setUsers(users);
+    });
+  }, []);
+
+  useEffect(() => {
+    const chatRef = firebase.database().ref('Chats');
+    chatRef.on('value', snapshot => {
+      const numUsers = Object.values(snapshot.val());
+      console.log(snapshot.val())
+      setNumUsers(numUsers);
     });
   }, []);
 
@@ -30,10 +40,13 @@ function ChatUserOverview() {
             }
           >
             <Text style={styles.fullName}>{item.homegroup.label}</Text>
+            {/* Display numUsers here */}
+            <Text>{`Antal brugere i chatten: ${numUsers}`}</Text>
           </TouchableOpacity>
         )}
         keyExtractor={item => item.email}
       />
+      
     </View>
   );
 }

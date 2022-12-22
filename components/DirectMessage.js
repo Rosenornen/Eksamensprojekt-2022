@@ -61,16 +61,28 @@ function DirectMessage({}) {
   }, []);
 
   function handleDeleteChat() {
-    Alert.alert(
-      'Slet denne chat',
-      'Er du sikker på, at du vil slette denne chat?',
-      [
-        { text: 'Fortryd', style: 'cancel' },
-        { text: 'Slet', onPress: deleteChat },
-      ],
-      { cancelable: false },
+    // Check if the current user has sent any messages in the chat
+    const hasSentMessage = Object.values(messages || {}).some(
+      message => message.sender === auth.currentUser?.uid
     );
+  
+    if (hasSentMessage) {
+      // The current user has sent a message in the chat, show the confirmation prompt
+      Alert.alert(
+        'Slet Chat',
+        'Er du sikker på, at du vil slette chatten?',
+        [
+          { text: 'Fortryd', style: 'cancel' },
+          { text: 'Slet', onPress: deleteChat },
+        ],
+        { cancelable: false },
+      );
+    } else {
+      // The current user has not sent a message in the chat, show an error message
+      alert("Du kan ikke slette chatten, da du ikke deltager i den");
+    }
   }
+  
 
   function deleteChat() {
     // Remove all messages from the Messages node in the Realtime Database
@@ -118,7 +130,7 @@ function DirectMessage({}) {
     start={{ x: 1, y: 0 }}
     end={{ x: 1, y: 1 }}>
         <Button
-            title="Delete chat"
+            title="Slet Chat"
             onPress={handleDeleteChat}
         />
         <View style={styles.container}>
