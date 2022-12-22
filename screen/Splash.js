@@ -38,5 +38,5 @@ const Splash = ({navigation}) => {
   )     
 }
 
-
+// export af filen, så det kan bruges andre steder
 export default Splash

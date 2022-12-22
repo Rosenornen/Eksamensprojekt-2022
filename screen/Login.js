@@ -139,6 +139,6 @@ const ImageBackground = styled.ImageBackground`
     height: 1000px
 `
 
-
+// export af filen, så det kan bruges andre steder
 export default Login
 

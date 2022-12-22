@@ -4,11 +4,7 @@ import React from 'react'
 import { LinearGradient } from 'expo-linear-gradient';
 import UploadContext from '../components/UploadContext';
 
-export default function Home() {  
-  
-  
-
-
+function GivMad() {  
     return (
       <LinearGradient
       colors={['#fce24e', 'white']}
@@ -27,3 +23,6 @@ export default function Home() {
       justifyContent: 'center',
     }
   })
+
+// export af filen, så det kan bruges andre steder
+export default GivMad

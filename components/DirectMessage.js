@@ -1,3 +1,4 @@
+// Import af diverse dependencies og componenter
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, TextInput, StyleSheet, Button, Alert} from 'react-native';
 import { useRoute } from '@react-navigation/native';
@@ -87,7 +88,7 @@ function DirectMessage({}) {
       setMessage('');
   }
   
-
+// Hvad man ser i sit View
   return (
     <LinearGradient
     colors={['#fce24e', 'white']}
@@ -163,7 +164,6 @@ const styles = StyleSheet.create({
   }
 });
 
+
+// export af filen, så det kan bruges andre steder
 export default DirectMessage;
-
-
-

@@ -131,4 +131,5 @@ return (
   )
 }
 
+// export af filen, så det kan bruges andre steder
 export default Register

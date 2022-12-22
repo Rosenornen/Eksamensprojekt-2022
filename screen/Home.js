@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { firebase } from '../firebase';
 import { LinearGradient } from 'expo-linear-gradient';
 
-export default function Home() {
+function Home() {
   const [fullName, setFullName] = useState('');
   const [orderCount, setOrderCount] = useState(0); // Add state to store the order count
   const [foods, setFoods] = useState(); // Initialize foods as undefined
@@ -158,3 +158,6 @@ const styles = StyleSheet.create({
     color: "darkgreen",
   }
 })
+
+// export af filen, så det kan bruges andre steder
+export default Home 

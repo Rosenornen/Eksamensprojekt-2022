@@ -188,4 +188,5 @@ const styles = StyleSheet.create({
     }
 });
 
+// export af filen, så det kan bruges andre steder
 export default MadDetaljer;

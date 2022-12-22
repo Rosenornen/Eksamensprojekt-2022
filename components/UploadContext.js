@@ -1,9 +1,11 @@
+// Import af diverse dependencies og componenter
 import React, { useState } from 'react';
 import { View, TextInput, Image, Button, StyleSheet, Alert, Text, Pressable } from 'react-native';
 import * as ImagePicker from "expo-image-picker";
 import { auth, firebase } from "../firebase"
 import {Dropdown} from 'react-native-element-dropdown';
 
+// Const af de forskellige madtyper, som man kan vælge i mellem 
 const data = [
   { label: 'Drikkevarer', value: '1' },
   { label: 'Kød', value: '2' },
@@ -15,7 +17,9 @@ const data = [
   { label: 'Konserves', value: '8' },
 ];
 
+// Funktion til at uploade madopslag fra GivMad.js 
 function UploadContext(navigation) {
+  // De forskellige attributter i et madopslag 
     const [hvem, setHvem] = useState('');
     const [hvor, setHvor] = useState('');
     const [hvad, setHvad] = useState('');
@@ -28,27 +32,27 @@ function UploadContext(navigation) {
 
     async function uploadData() {
       if (!hvem || !hvor || !hvad || !afhentningstidspunkt || !madtype || !image ) {
-        // Display an error if the text or image is not set
+        // Error, hvis alle felter ikke er udfyldt
         return Alert.alert('Alle Felter skal udfyldes')
       }
   
-      // Create a storage reference
+      // Reference til Firebase Storage, som bruges til image
       const storageRef = firebase.storage().ref();
   
-      // Create a reference to the file in Cloud Storage
+      // Reference til image fil i Cloud Storage
       const fileRef = storageRef.child(`images/${image}`);
   
-      // Retrieve the image data
+      // Henter image data
       const response = await fetch(image);
       const data = await response.blob();
   
-      // Upload the file to Cloud Storage
+      // Uploader image i Cloud Storage 
       await fileRef.put(data);
   
-      // Get the download URL for the file
+      // Downloader Url til image, som gemmes til Realtime Database
       const downloadURL = await fileRef.getDownloadURL();
   
-      // Write the data to the Firebase Realtime Database
+      // Sender data til Firebase Realtime Database
       const newDataRef = firebase
         .database()
         .ref(`MadTilAfhentning/`)
@@ -67,9 +71,9 @@ function UploadContext(navigation) {
     const uniqueId = newDataRef.key;
 
     newDataRef.update({ id: uniqueId });
-
-
-      Alert.alert(`Saved`);;
+    
+    // Alert om, at opslaget er gemt og alle felter nulstilles 
+      Alert.alert(`Gemt`);;
       setHvem('')
       setHvor('')
       setHvad('')
@@ -80,7 +84,7 @@ function UploadContext(navigation) {
       setReserved('')
     }
   
-
+  // Funktion til at kunne vælge et billede, der skal bruges til et madopslag
   async function selectImage() {
     const options = {
       title: 'Select Image',
@@ -93,9 +97,9 @@ function UploadContext(navigation) {
     try {
       const response = await ImagePicker.launchImageLibraryAsync(options);
       if (response.cancelled) {
-        console.log('User cancelled image picker');
+        console.log('Bruger afbryd valg af billede');
       } else {
-        // Set the image state with the selected image
+        // Ændrer setImage til det valgte billede
         setImage(response.uri);
       }
     } catch (error) {
@@ -103,8 +107,8 @@ function UploadContext(navigation) {
     }
   }
 
+  // Hvad man ser i sit View
   return (
-  
    <View style={styles.container}>
       <Text style = {styles.header}>Giv mad</Text>
       <Text style = {styles.info}>Udfyld felterne nedenfor</Text>
@@ -162,6 +166,7 @@ function UploadContext(navigation) {
   );
 }
 
+// Style Sheet til UploadContext.js
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -240,4 +245,5 @@ const styles = StyleSheet.create({
   },
 });
 
+// export af filen, så det kan bruges andre steder
 export default UploadContext;

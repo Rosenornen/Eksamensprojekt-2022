@@ -1,3 +1,4 @@
+// Import af diverse dependencies og componenter
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -18,7 +19,7 @@ function ChatUserOverview() {
     });
   }, []);
 
-
+// Hvad man ser i sit View
   return (
     <View>
       <View style = {styles.textContainer}>
@@ -77,4 +78,5 @@ const styles = StyleSheet.create({
       marginTop: 10,
     }
 });
+// export af filen, så det kan bruges andre steder
 export default ChatUserOverview;

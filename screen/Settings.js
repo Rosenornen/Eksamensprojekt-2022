@@ -15,8 +15,7 @@ const data = [
   { label: 'Ejerforening EHV 17-29', value: '3' },
   { label: 'Stålkollegiet', value: '4' },
 ];
-
-export default function Settings({navigation, route}) {
+function Settings({navigation, route}) {
 
   const handleSignOut = () => {
     auth
@@ -271,5 +270,7 @@ const styles = StyleSheet.create({
   logudText:{
     fontWeight: "bold"
   }
-
 })
+
+// export af filen, så det kan bruges andre steder
+export default Settings
