@@ -51,13 +51,16 @@ const MadListe = ({navigation}) => {
                 return(
                     <TouchableOpacity style={styles.foodItem} onPress={() => handleSelectFood(foodKeys[index])}>
                         <Text style={styles.madPåDisplay}>
-                             Hvad tid: {item.afhentningstidspunkt}
+                             Hvem: {item.hvem}
                         </Text>
                         <Text style={styles.madPåDisplay}>
-                             Hvor bor Nabo: {item.hvor}
+                             Tidspunkt: {item.afhentningstidspunkt}
                         </Text>
                         <Text style={styles.madPåDisplay}>
-                             Hvilken madvare:{item.hvad}
+                             Hvor: {item.hvor}
+                        </Text>
+                        <Text style={styles.madPåDisplay}>
+                             Madvare:{item.hvad}
                         </Text>
                         {item.image && (
         <Image source={{ uri: item.image }} style={styles.image} />
