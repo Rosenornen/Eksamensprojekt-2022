@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { firebase } from "../firebase"
 
@@ -20,7 +20,12 @@ function ChatUserOverview() {
 
 
   return (
-    <View style={styles.container}>
+    <View>
+      <View style = {styles.textContainer}>
+            <Text style = {styles.chatHeader}>Chat</Text>
+            <Text style = {styles.chatText}>Vælg en chat tilhørende dit boligområde (Max pr. chat: 2)</Text>
+      </View>
+     <View style={styles.container}>
       <FlatList
         data={Object.values(users)}  // Convert object to array
         renderItem={({ item }) => (
@@ -35,17 +40,21 @@ function ChatUserOverview() {
         )}
         keyExtractor={item => item.email}
       />
-      
+     </View>
     </View>
   );
 }
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
+      backgroundColor: 'transparent',
+      flexDirection: "row",
+      alignItems: 'center',
+      width: 400
+    },
+    textContainer: {
+      marginBottom: "10%",
       backgroundColor: 'transparent',
       alignItems: 'center',
-      flexDirection: "row",
-      justifyContent: 'center',
     },
     userItem: {
       backgroundColor: '#f0f0f0',
@@ -59,5 +68,11 @@ const styles = StyleSheet.create({
     fullName: {
       fontSize: 20,
     },
+    chatHeader: {
+      fontSize: 30
+    },
+    chatText: {
+      marginTop: 10,
+    }
 });
 export default ChatUserOverview;

@@ -129,12 +129,8 @@ function DirectMessage({}) {
     style={styles.LinearGradient}
     start={{ x: 1, y: 0 }}
     end={{ x: 1, y: 1 }}>
-        <Button
-            title="Slet Chat"
-            onPress={handleDeleteChat}
-        />
-        <View style={styles.container}>
-        <Text style={styles.fullName}>Antal bruger i chatten: {numUsers}</Text>
+         <View style={styles.container}> 
+       
     <FlatList
       data={Object.values(messages || {})}
       renderItem={({item }) => {
@@ -150,7 +146,11 @@ function DirectMessage({}) {
       }}
       keyExtractor = {item => item.message}
     />
-
+        <Button
+            title="Slet Chat"
+            onPress={handleDeleteChat}
+        />
+        <Text style={styles.fullName}>Antal bruger i chatten: {numUsers}</Text>
       <TextInput
         style={styles.input}
         value={message}
@@ -174,10 +174,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'transparent',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginTop: 100,
   },
   message: {
-    fontSize: 15
+    fontSize: 15,
+    
   },
   input: {
     height: 40,

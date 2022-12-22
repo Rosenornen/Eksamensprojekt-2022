@@ -4,6 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import styled from 'styled-components/native'
 import Baggrund from "../assets/BaggrundLogin_Register.png"
 import { db, auth } from '../firebase';
+import { Alert } from 'react-native';
 
 
 const Container = styled.ScrollView`
@@ -99,6 +100,7 @@ const Register = ({navigation}) => {
       .createUserWithEmailAndPassword(email, password)
       .then(userCredentials =>{
        const user = userCredentials.user;
+       Alert.alert('Du har nu oprettet dig')
        navigation.replace("Login");
        console.log("Registered følgende bruger: ", user.email)
       })

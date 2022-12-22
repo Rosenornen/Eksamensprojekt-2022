@@ -66,8 +66,17 @@ export default function Home() {
         <Text style={styles.orderCountText}>Du har lavet {userwhoreservedOrderCount} reservationer!</Text>
         <Text style={styles.orderCountCO2}>Du har sparet {(idOrderCount + userwhoreservedOrderCount) * 1.25} KG CO2</Text>
       </View>
-      <View style={styles.Nyheder}>
-
+      <View style={styles.orderCountContainer}>
+        <Text style = {styles.score}>Din gennemsnitlige score: 4.2</Text>
+      </View>
+      <View style={styles.nyhederContainer}>
+          <Text style = {styles.nyhederHeader}>Nyheder</Text>
+          <Text style = {styles.nyhederOverskrift}>Positive trend for madspild</Text>
+          <Text style = {styles.nyheder}>Den gennemsnitlige dansker smider årligt mindre mad ud sammenlignet med for 10 år siden...</Text>
+          <Text style = {styles.nyhederOverskrift}>Tips til at undgå madspild</Text>
+          <Text style = {styles.nyheder}>Der er et stigende fokus på at nedsætte madspild hos danskerne. Nedenfor ser du 10 tips til at undgå madspild…</Text>
+          <Text style = {styles.nyhederOverskrift}>Klimaforandringer hærger Sydeuropa</Text>
+          <Text style = {styles.nyheder}>Det sydlige Europa bliver i disse dage påvirket voldsomt af massivt høje vanstande…</Text>
       </View>
     </View>
   </LinearGradient>
@@ -81,7 +90,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   velkommenTilbageTekst:{
-    marginTop: "-65%",
+    marginTop: "5%",
     alignItems: "center"
   }, 
   orderCountContainer:{
@@ -92,12 +101,13 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 30,
     borderColor: "black",
-    borderWidth: 1
+    borderWidth: 1,
+    width: 350
   },
   label: {
     fontSize: 18,
     color: '#333',
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   fullName: {
     fontSize: 18,
@@ -108,7 +118,7 @@ const styles = StyleSheet.create({
   orderCountText: {
     fontSize: 16,
     color: '#333',
-    marginTop: 20,
+    marginTop: 10,
     textDecorationLine: "underline",
     marginBottom: 5
   },
@@ -116,5 +126,34 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     color: "darkgreen",
-    }
+    marginTop: 10,
+    },
+  nyhederContainer: {
+    backgroundColor: 'rgba(0,0,0,0.1)',
+    marginTop: "5%",
+    padding: 15,
+    borderRadius: 30,
+    borderColor: "black",
+    borderWidth: 1,
+    width: 350
+
+  },
+  nyhederHeader: {
+    fontSize: 18, 
+    fontWeight: 'bold',
+    marginBottom: 15
+  },
+  nyhederOverskrift: {
+    fontSize: 15, 
+    fontWeight: 'bold',
+    marginBottom: 5
+  },
+  nyheder: {
+    marginBottom: 15
+  },
+  score: {
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "darkgreen",
+  }
 })
