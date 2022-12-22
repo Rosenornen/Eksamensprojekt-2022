@@ -7,6 +7,8 @@ export default function Home() {
   const [fullName, setFullName] = useState('');
   const [orderCount, setOrderCount] = useState(0); // Add state to store the order count
   const [foods, setFoods] = useState(); // Initialize foods as undefined
+  const [idOrderCount, setIdOrderCount] = useState(0);
+  const [userwhoreservedOrderCount, setUserwhoreservedOrderCount] = useState(0);
 
   useEffect(() => {
     firebase.database().ref('/MadTilAfhentning/') // Fetch data from the /MadTilAfhentning/ path
@@ -14,8 +16,10 @@ export default function Home() {
       .then(snapshot => {
         const values = Object.values(snapshot.val()); // Get an array of all the values in the data
         const currentUserId = firebase.auth().currentUser.uid;
-        const userOrders = values.filter(value => value.Id_ === currentUserId || value.userwhoreserved === currentUserId); // Filter the array based on the current user's ID or the userwhoreserved property
-        setOrderCount(userOrders.length); // Set the order count using the length of the filtered array
+        const idOrders = values.filter(value => value.Id_ === currentUserId); // Filter the array based on the current user's ID
+        const userwhoreservedOrders = values.filter(value => value.userwhoreserved === currentUserId); // Filter the array based on the userwhoreserved property
+        setIdOrderCount(idOrders.length); // Set the order count using the length of the filtered array
+        setUserwhoreservedOrderCount(userwhoreservedOrders.length); // Set the order count using the length of the filtered array
       });
   }, [foods]); // Only run this effect when the value of foods changes
   
@@ -58,8 +62,9 @@ export default function Home() {
         <Text style={styles.fullName}>{fullName}</Text>
       </Text>
       <View style={styles.orderCountContainer}>
-        <Text style={styles.orderCountText}>Du har lavet {orderCount} opslag!</Text>
-        <Text style={styles.orderCountCO2}>Du har sparet {orderCount * 1.25} KG CO2</Text>
+        <Text style={styles.orderCountText}>Du har lavet {idOrderCount} opslag!</Text>
+        <Text style={styles.orderCountText}>Du har lavet {userwhoreservedOrderCount} reservationer!</Text>
+        <Text style={styles.orderCountCO2}>Du har sparet {(idOrderCount + userwhoreservedOrderCount) * 1.25} KG CO2</Text>
       </View>
     </View>
   </LinearGradient>
