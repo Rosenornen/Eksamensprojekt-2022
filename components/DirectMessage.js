@@ -5,8 +5,9 @@ import { useRoute } from '@react-navigation/native';
 import { auth, firebase } from "../firebase"
 import { LinearGradient } from 'expo-linear-gradient';
 
-
+// Funktion, der gør, at man kan skrive beskeder til hinanden i chatten 
 function DirectMessage({}) {
+// De forskellige attributter og referencer, der bruges til funktionen 
   const route = useRoute();
   const { uid } = route.params;
   const [messages, setMessages] = useState([]);
@@ -46,14 +47,14 @@ function DirectMessage({}) {
     });
   }, []);
 
+  // Funktion til at slette en chat, når man er færdig
   function handleDeleteChat() {
-    // Check if the current user has sent any messages in the chat
+    // Checker om ens bruger har sendt en besked i chatten 
     const hasSentMessage = Object.values(messages || {}).some(
       message => message.sender === auth.currentUser?.uid
     );
-  
     if (hasSentMessage) {
-      // The current user has sent a message in the chat, show the confirmation prompt
+      // Hvis man har sendt en besked = får man muligheden for at kunne slette chatten
       Alert.alert(
         'Slet Chat',
         'Er du sikker på, at du vil slette chatten?',
@@ -64,20 +65,21 @@ function DirectMessage({}) {
         { cancelable: false },
       );
     } else {
-      // The current user has not sent a message in the chat, show an error message
+      // Hvis man ikke har sendt i besked = får man nedenstående alert 
       alert("Du kan ikke slette chatten, da du ikke deltager i den");
     }
   }
   
 
   function deleteChat() {
-    // Remove all messages from the Messages node in the Realtime Database
+    // Sletter alle beskeder tilhørende chatten 
     messagesRef.remove();
   
-    // Set the messages state variable to an empty array
+    // Sætter Messages til et array
     setMessages([]);
   }
 
+  // Funktion til at håndtere, når man vil sende en besked 
   function handleSendMessage() {
       messagesRef.push({
         sender: auth.currentUser?.uid,
@@ -130,6 +132,7 @@ function DirectMessage({}) {
   );
 }
 
+// Style Sheet til View 
 const styles = StyleSheet.create({
   LinearGradient: {
     flex: 1,

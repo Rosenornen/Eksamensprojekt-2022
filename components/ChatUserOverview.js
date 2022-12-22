@@ -4,6 +4,7 @@ import { View, Text, FlatList, TouchableOpacity, StyleSheet, SafeAreaView } from
 import { useNavigation } from '@react-navigation/native';
 import { firebase } from "../firebase"
 
+// Funktion til at få overblik over ens chatmuligheder 
 function ChatUserOverview() {
   const [users, setUsers] = useState([]);
   const navigation = useNavigation();
@@ -45,6 +46,8 @@ function ChatUserOverview() {
     </View>
   );
 }
+
+// Style Sheet til View 
 const styles = StyleSheet.create({
     container: {
       backgroundColor: 'transparent',
