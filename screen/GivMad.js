@@ -1,9 +1,7 @@
-import {StyleSheet, Text, View, Button} from 'react-native'
+// Import af diverse dependencies og componenter
+import {StyleSheet} from 'react-native'
 import React from 'react'
-import { auth } from '../firebase';
-import { db } from '../firebase';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useNavigation } from '@react-navigation/native'
 import UploadContext from '../components/UploadContext';
 
 export default function Home() {  

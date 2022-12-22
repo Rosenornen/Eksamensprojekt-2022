@@ -1,3 +1,4 @@
+// Import af diverse dependencies
 import styled from 'styled-components/native'
 import { auth } from "../firebase"
 import React, { useEffect } from 'react'

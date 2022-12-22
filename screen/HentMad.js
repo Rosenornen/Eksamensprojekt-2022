@@ -1,3 +1,4 @@
+// Import af diverse dependencies og componenter
 import * as React from 'react';
 import {View, Text, FlatList, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import firebase from 'firebase';

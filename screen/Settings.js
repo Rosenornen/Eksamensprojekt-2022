@@ -1,4 +1,4 @@
-
+// Import af diverse dependencies og componenter
 import {StyleSheet, Text, View, TextInput, Alert, Pressable} from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { StatusBar } from 'expo-status-bar';

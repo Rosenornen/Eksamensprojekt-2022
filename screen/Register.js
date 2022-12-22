@@ -1,3 +1,4 @@
+// Import af diverse dependencies og componenter
 import React, { useState } from 'react'
 import { StatusBar } from 'expo-status-bar';
 import styled from 'styled-components/native'

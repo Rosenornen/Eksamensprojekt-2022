@@ -1,7 +1,9 @@
+// Import af diverse dependencies og componenter
 import {StyleSheet} from 'react-native'
 import React from 'react'
 import { LinearGradient } from 'expo-linear-gradient';
 import ChatUserOverview from '../components/ChatUserOverview';
+
 
 function Chat() {
     return (
