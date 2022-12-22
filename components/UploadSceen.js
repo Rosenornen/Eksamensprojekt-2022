@@ -3,6 +3,7 @@ import React, { useState, } from 'react';
 import * as ImagePicker from "expo-image-picker";
 import { auth, db, firebase } from "../firebase"
 
+
 const UploadScreen = () => {
   const [image, setImage] = useState(null);
   const [uploading, setUploading] = useState(false);

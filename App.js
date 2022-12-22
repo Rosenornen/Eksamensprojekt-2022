@@ -40,15 +40,16 @@ export default function App() {
         tabBarItemStyle: {flexDirection: "row"},
       }}
       >
+        <Tab.Screen name="   " component={Home} options={{
+          headerShown: false, tabBarIcon: ({ color }) => <Ionicons name="ios-person" size={30} color={color} style={{marginLeft: 10, marginBottom: 25, marginTop: -20, }} />
+        }} />
        <Tab.Screen name=" " component={Chat} options={{
         headerShown: false, tabBarIcon: ({ color }) => <Ionicons name="chatbox" size={30} color={color} style={{marginLeft: 10, marginBottom: 25, marginTop: -20, }} />
         }} />
          <Tab.Screen name="  " component={HentMad} options={{
            headerShown: false, tabBarIcon: ({ color }) => <FontAwesome name="recycle" size={30} color={color} style={{marginLeft: 10, marginBottom: 25, marginTop: -20, }} />
         }} />
-        <Tab.Screen name="   " component={Home} options={{
-          headerShown: false, tabBarIcon: ({ color }) => <Ionicons name="ios-person" size={30} color={color} style={{marginLeft: 10, marginBottom: 25, marginTop: -20, }} />
-        }} />
+        
         <Tab.Screen name="    " component={GivMad} options={{
           headerShown: false, tabBarIcon: ({ color }) => <FontAwesome5 name="hand-holding-heart" size={30} color={color} style={{marginLeft: 10, marginBottom: 25, marginTop: -15,}} />
         }} />
@@ -116,7 +117,14 @@ export default function App() {
                 
                  }}/>  
               <Stack.Screen name = "DirectMessage" component={DirectMessage} options={{
-                
+                 gestureEnabled: true,
+                 animationEnabled: true,
+                 title: "",
+                 headerTransparent: true,
+                 gestureDirection: "horizontal",
+                 headerTitle: () => (
+                   <Image style={{ marginLeft: 110, marginTop: 10, width: 250, height: 250 }} source={require("./assets/Splash2.png")} />
+                 ), 
               }}/>  
               <Stack.Screen name = "ChatUserOverview" component={ChatUserOverview} options={{
                 

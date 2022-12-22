@@ -92,9 +92,8 @@ export default function Settings({navigation, route}) {
         start={{ x: 1, y: 0 }}
         end={{ x: 1, y: 1 }}>
         <View style={styles.textContainer}>
-        <Text style={styles.User}> Brugeren som er logget ind:</Text>
+        <Text style={styles.User}> Du er logget ind som:</Text>
         <Text style={styles.Details}> Email: {auth.currentUser?.email}</Text>
-        <Text style={styles.Details}> ID: {auth.currentUser?.uid}</Text>
         </View>
         <Dropdown
         style={styles.dropdown}
@@ -210,7 +209,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   User:{
-    fontSize: 10,
+    fontSize: 15,
     lineHeight: 10,
     letterSpacing: 0.25,
     color: 'black',

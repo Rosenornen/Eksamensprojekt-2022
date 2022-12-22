@@ -58,13 +58,16 @@ export default function Home() {
   >
     <View style={styles.velkommenTilbageTekst}>
       <Text style={styles.container}>
-        <Text style={styles.label}>Velkommen tilbage </Text>
+        <Text style={styles.label}>Velkommen </Text>
         <Text style={styles.fullName}>{fullName}</Text>
       </Text>
       <View style={styles.orderCountContainer}>
         <Text style={styles.orderCountText}>Du har lavet {idOrderCount} opslag!</Text>
         <Text style={styles.orderCountText}>Du har lavet {userwhoreservedOrderCount} reservationer!</Text>
         <Text style={styles.orderCountCO2}>Du har sparet {(idOrderCount + userwhoreservedOrderCount) * 1.25} KG CO2</Text>
+      </View>
+      <View style={styles.Nyheder}>
+
       </View>
     </View>
   </LinearGradient>
@@ -94,6 +97,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 18,
     color: '#333',
+    fontWeight: "bold"
   },
   fullName: {
     fontSize: 18,
