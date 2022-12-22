@@ -75,8 +75,6 @@ function DirectMessage({}) {
   
     // Set the messages state variable to an empty array
     setMessages([]);
-  
-    // Remove the numUsers property from the Chats node in the Realtime Database
   }
 
   function handleSendMessage() {
@@ -121,7 +119,7 @@ function DirectMessage({}) {
       <TextInput
         style={styles.input}
         value={message}
-        placeholder="skriv noget her"
+        placeholder="Skriv noget her"
         onChangeText={setMessage}
         onSubmitEditing={handleSendMessage}
       />
@@ -154,7 +152,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     marginTop: 15,
-    marginBottom: 20
+    marginBottom: 30
   },
   fullName: {
     fontSize: 15,
