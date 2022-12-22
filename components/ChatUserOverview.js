@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { auth, db, firebase } from "../firebase"
+import { firebase } from "../firebase"
 
 function ChatUserOverview() {
   const [users, setUsers] = useState([]);
