@@ -1,11 +1,7 @@
 
-import {StyleSheet, Text, View, Button} from 'react-native'
+import {StyleSheet} from 'react-native'
 import React from 'react'
-import { auth } from '../firebase';
-import { db } from '../firebase';
 import { LinearGradient } from 'expo-linear-gradient';
-
-import ChatOverview from '../components/ChatFunction';
 import ChatUserOverview from '../components/ChatUserOverview';
 
 function Chat() {
