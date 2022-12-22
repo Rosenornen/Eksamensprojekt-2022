@@ -49,19 +49,21 @@ const styles = StyleSheet.create({
       backgroundColor: 'transparent',
       flexDirection: "row",
       alignItems: 'center',
-      width: 400
+      width: 400,
     },
     textContainer: {
       marginBottom: "10%",
       backgroundColor: 'transparent',
       alignItems: 'center',
+
     },
     userItem: {
       backgroundColor: '#f0f0f0',
-      width: "75%",
+      alignItems: 'center',
+      width: "60%",
+      backgroundColor: "lightblue",
       paddingTop: 10,
       marginTop: 20,
-      marginHorizontal: 30,
       borderWidth: 1,
       borderRadius: 5,
     },
