@@ -4,8 +4,11 @@ import React from 'react'
 import { LinearGradient } from 'expo-linear-gradient';
 import UploadContext from '../components/UploadContext';
 
+// Funktion over at kunne give mad - Se UploadContext.js i components for reference 
 function GivMad() {  
-    return (
+
+  // View over GivMad.js
+  return (
       <LinearGradient
       colors={['#fce24e', 'white']}
       style={styles.LinearGradient}
@@ -16,6 +19,7 @@ function GivMad() {
     )
   }
   
+  // Tilhørende Style Sheet
   const styles = StyleSheet.create({
     LinearGradient: {
       flex: 1,

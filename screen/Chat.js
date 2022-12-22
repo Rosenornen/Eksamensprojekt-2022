@@ -4,9 +4,10 @@ import React from 'react'
 import { LinearGradient } from 'expo-linear-gradient';
 import ChatUserOverview from '../components/ChatUserOverview';
 
-
+// Funktion over Chat View - Se ChatUserOverview.js i components for reference 
 function Chat() {
-    return (
+// Ens view     
+  return (
       <LinearGradient
         colors={['#fce24e', 'white']}
         style={styles.LinearGradient}
@@ -16,6 +17,8 @@ function Chat() {
       </LinearGradient>
     )
 }
+
+// Style Sheet
 const styles = StyleSheet.create({
   LinearGradient: {
     flex: 1,

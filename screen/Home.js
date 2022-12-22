@@ -4,25 +4,25 @@ import React, { useState, useEffect } from 'react';
 import { firebase } from '../firebase';
 import { LinearGradient } from 'expo-linear-gradient';
 
+// Funktion over Home/Dashboard
 function Home() {
   const [fullName, setFullName] = useState('');
-  const [orderCount, setOrderCount] = useState(0); // Add state to store the order count
-  const [foods, setFoods] = useState(); // Initialize foods as undefined
+  const [foods, setFoods] = useState();
   const [idOrderCount, setIdOrderCount] = useState(0);
   const [userwhoreservedOrderCount, setUserwhoreservedOrderCount] = useState(0);
 
   useEffect(() => {
-    firebase.database().ref('/MadTilAfhentning/') // Fetch data from the /MadTilAfhentning/ path
+    firebase.database().ref('/MadTilAfhentning/') // Fetcher data fra /MadTilAfhentning/ path
       .once('value')
       .then(snapshot => {
-        const values = Object.values(snapshot.val()); // Get an array of all the values in the data
+        const values = Object.values(snapshot.val()); // Får et array af data 
         const currentUserId = firebase.auth().currentUser.uid;
-        const idOrders = values.filter(value => value.Id_ === currentUserId); // Filter the array based on the current user's ID
-        const userwhoreservedOrders = values.filter(value => value.userwhoreserved === currentUserId); // Filter the array based on the userwhoreserved property
-        setIdOrderCount(idOrders.length); // Set the order count using the length of the filtered array
-        setUserwhoreservedOrderCount(userwhoreservedOrders.length); // Set the order count using the length of the filtered array
+        const idOrders = values.filter(value => value.Id_ === currentUserId); // Filter i array på baggrund af auth.currentUser?.uid
+        const userwhoreservedOrders = values.filter(value => value.userwhoreserved === currentUserId); // Filter på baggrund af userwhoreserved
+        setIdOrderCount(idOrders.length); // Sætter orderCount ud fra længden af filter array 
+        setUserwhoreservedOrderCount(userwhoreservedOrders.length); // Sætter orderCount ud fra længden af filter array 
       });
-  }, [foods]); // Only run this effect when the value of foods changes
+  }, [foods]);
   
   useEffect(() => {
     firebase.database().ref('/User/' + firebase.auth().currentUser.uid)
@@ -31,10 +31,9 @@ function Home() {
         if (snapshot.val()) {
           setFullName(snapshot.val().fullName);
         } else {
-          // Handle case where data does not exist
         }
       });
-  }, []); // This effect does not depend on any values, so we can pass an empty array
+  }, []);
 
   useEffect(() => {
     firebase
@@ -43,13 +42,13 @@ function Home() {
       .on('value', snapshot => {
         setFoods(snapshot.val());
       });
-  }, []); // This effect does not depend on any values, so we can pass an empty array
+  }, []);
 
-  // If foods is not defined, show a loading message
   if (!foods) {
     return <Text style={styles.empty}>Loading...</Text>;
   }
 
+  // View 
   return (
     <LinearGradient
     colors={['#fce24e', 'white']}
@@ -84,6 +83,7 @@ function Home() {
   )
 }
 
+// Style Sheet til Home.js View
 const styles = StyleSheet.create({
   LinearGradient: {
     flex: 1,

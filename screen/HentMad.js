@@ -5,10 +5,12 @@ import firebase from 'firebase';
 import {useEffect, useState} from "react";
 import { LinearGradient } from 'expo-linear-gradient';
 
+// Funktion, der danner overblik hvilken form for mad, som man kan hente
 const MadListe = ({navigation}) => {
 
     const [foods,setFoods] = useState()
 
+// Tjekker i database om der er Madopslag eller ej 
     useEffect(() => {
         if(!foods) {
             firebase
@@ -28,6 +30,7 @@ const MadListe = ({navigation}) => {
     const handleSelectFood = id => {
         /*Her søger vi direkte i vores array af foods og finder food objektet som matcher idet vi har tilsendt*/
         const food = Object.entries(foods).find( food => food[0] === id /*id*/)
+        // Man bliver sent til MadDetaljer, når man klikker på et madopslag 
         navigation.navigate('MadDetaljer', { food });
     };
 
@@ -35,6 +38,7 @@ const MadListe = ({navigation}) => {
     const foodArray = Object.values(foods);
     const foodKeys = Object.keys(foods);
 
+    // View til HentMad 
     return (
       <LinearGradient
         colors={['#fce24e', 'white']}
@@ -79,7 +83,7 @@ const MadListe = ({navigation}) => {
 // export af filen, så det kan bruges andre steder
 export default MadListe;
 
-
+// Style Sheet til MadListe 
 const styles = StyleSheet.create({
   LinearGradient: {
     flex: 1,
