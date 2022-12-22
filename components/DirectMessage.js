@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, TextInput, StyleSheet} from 'react-native';
+import { View, Text, FlatList, TextInput, StyleSheet, Button, Alert} from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { auth, firebase } from "../firebase"
 import { LinearGradient } from 'expo-linear-gradient';
@@ -12,6 +12,9 @@ function DirectMessage({}) {
   const [message, setMessage] = useState('');
   const messagesRef = firebase.database().ref(`Messages/${uid}`);
   const [users, setUsers] = useState([]);
+  const [numUsers, setNumUsers] = useState(0);
+  const chatRef = firebase.database().ref(`Chats/${uid}`);
+
 
 
   useEffect(() => {
@@ -43,17 +46,70 @@ function DirectMessage({}) {
       setMessages(messages);
     });
   }, []);
+
+  useEffect(() => {
+    chatRef.on('value', snapshot => {
+      const chat = snapshot.val();
+      if (chat && chat.numUsers) {
+        setNumUsers(chat.numUsers);
+      } else {
+        // If the chat node or the numUsers property does not exist, initialize them
+        chatRef.set({ numUsers: 0 });
+        setNumUsers(0);
+      }
+    });
+  }, []);
+
+  function handleDeleteChat() {
+    Alert.alert(
+      'Slet denne chat',
+      'Er du sikker på, at du vil slette denne chat?',
+      [
+        { text: 'Fortryd', style: 'cancel' },
+        { text: 'Slet', onPress: deleteChat },
+      ],
+      { cancelable: false },
+    );
+  }
+
+  function deleteChat() {
+    // Remove all messages from the Messages node in the Realtime Database
+    messagesRef.remove();
+  
+    // Set the messages state variable to an empty array
+    setMessages([]);
+  
+    // Remove the numUsers property from the Chats node in the Realtime Database
+    chatRef.update({ numUsers: null });
+  
+    // Set the numUsers state variable to 0
+    setNumUsers(0);
+  }
+  
+  
+  
+  
   
 
   function handleSendMessage() {
+    if (numUsers < 2) {
+      // If the number of users in the chat is less than 2, proceed with sending the message
       messagesRef.push({
         sender: auth.currentUser?.uid,
         message,
         timestamp: Date.now(),
-        recepient: uid
+        recipient: uid
       });
-    setMessage('');
+      setMessage('');
+  
+      // Increment the number of users in the chat by 1
+      chatRef.update({ numUsers: numUsers + 1 });
+    } else {
+      // If the number of users in the chat is 2 or more, show an error message or take other appropriate action
+      alert("Chatten er fuld");
+    }
   }
+  
 
   return (
     <LinearGradient
@@ -61,14 +117,12 @@ function DirectMessage({}) {
     style={styles.LinearGradient}
     start={{ x: 1, y: 0 }}
     end={{ x: 1, y: 1 }}>
+        <Button
+            title="Delete chat"
+            onPress={handleDeleteChat}
+        />
         <View style={styles.container}>
-        <FlatList
-        data={Object.values(users)}  // Convert object to array
-        renderItem={({ item }) => (
-            <Text style={styles.fullName}>{"Du chatter nu med: " + item.fullName}</Text>
-        )}
-        keyExtractor={item => item.email}
-      />
+        <Text style={styles.fullName}>Antal bruger i chatten: {numUsers}</Text>
     <FlatList
       data={Object.values(messages || {})}
       renderItem={({item }) => {
@@ -111,8 +165,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   message: {
-    fontSize: 15,
-
+    fontSize: 15
   },
   input: {
     height: 40,
@@ -122,7 +175,8 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   fullName: {
-    fontSize: 15
+    fontSize: 15,
+    marginBottom: 30
   }
 });
 

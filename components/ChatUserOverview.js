@@ -29,8 +29,7 @@ function ChatUserOverview() {
               navigation.navigate('DirectMessage', { uid: item.Id_ })
             }
           >
-            <Text style={styles.fullName}>{item.email + " / " + item.fullName + " / " + item.Id_
-            }</Text>
+            <Text style={styles.fullName}>{item.homegroup.label}</Text>
           </TouchableOpacity>
         )}
         keyExtractor={item => item.email}
