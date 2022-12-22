@@ -49,7 +49,8 @@ const styles = StyleSheet.create({
       backgroundColor: 'transparent',
       flexDirection: "row",
       alignItems: 'center',
-      width: 400,
+      justifyContent: 'center',
+      width: 350,
     },
     textContainer: {
       marginBottom: "10%",
@@ -60,7 +61,6 @@ const styles = StyleSheet.create({
     userItem: {
       backgroundColor: '#f0f0f0',
       alignItems: 'center',
-      width: "60%",
       backgroundColor: "lightblue",
       paddingTop: 10,
       marginTop: 20,

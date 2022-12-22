@@ -195,15 +195,26 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   UploadForm:{
-    backgroundColor: "lightgreen",
-    borderRadius: 3,
-    padding: 10
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: "2%",
+    margin: 10,
+    borderRadius: 8,
+    borderColor: "black",
+    borderWidth: 1,
+    backgroundColor: 'lightgreen',
   },
   UploadBillede:{
-    backgroundColor: "orange",
-    borderRadius: 3,
-    marginRight: 10,
-    padding: 10
+    backgroundColor: "lightblue",
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: "2%",
+    borderRadius: 8,
+    borderColor: "black",
+    borderWidth: 1,
+    margin: 10,
   },
   UploadText:{
     fontWeight: "bold"
