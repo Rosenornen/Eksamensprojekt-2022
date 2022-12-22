@@ -13,11 +13,12 @@ export default function Home() {
       .once('value')
       .then(snapshot => {
         const values = Object.values(snapshot.val()); // Get an array of all the values in the data
-        const userOrders = values.filter(value => value.Id_ === firebase.auth().currentUser.uid); // Filter the array based on the current user's ID
+        const currentUserId = firebase.auth().currentUser.uid;
+        const userOrders = values.filter(value => value.Id_ === currentUserId || value.userwhoreserved === currentUserId); // Filter the array based on the current user's ID or the userwhoreserved property
         setOrderCount(userOrders.length); // Set the order count using the length of the filtered array
       });
   }, [foods]); // Only run this effect when the value of foods changes
-
+  
   useEffect(() => {
     firebase.database().ref('/User/' + firebase.auth().currentUser.uid)
       .once('value')
@@ -57,7 +58,7 @@ export default function Home() {
         <Text style={styles.fullName}>{fullName}</Text>
       </Text>
       <View style={styles.orderCountContainer}>
-        <Text style={styles.orderCountText}>Du har {orderCount} aktive opslag!</Text>
+        <Text style={styles.orderCountText}>Du har lavet {orderCount} opslag!</Text>
         <Text style={styles.orderCountCO2}>Du har sparet {orderCount * 1.25} KG CO2</Text>
       </View>
     </View>
