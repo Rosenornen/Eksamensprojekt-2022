@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View, Text, StyleSheet, Image, Button, TextInput, Alert } from 'react-native';
-import { auth, db, firebase } from "../firebase"
+import { auth, firebase } from "../firebase"
 import {useEffect, useState} from "react";
 import { LinearGradient } from 'expo-linear-gradient';
 

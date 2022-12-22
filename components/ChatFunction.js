@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {ScrollView, View, TextInput, Button, FlatList, StyleSheet, Text, RefreshControl} from 'react-native';
-import { auth, db, firebase } from "../firebase"
+import {firebase } from "../firebase"
 
     const ChatOverview = () => {
       const [messages, setMessages] = useState([]);

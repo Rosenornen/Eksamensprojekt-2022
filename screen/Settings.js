@@ -1,12 +1,10 @@
 
-import {StyleSheet, Text, View, Button, TextInput, Alert, Image, Pressable} from 'react-native'
+import {StyleSheet, Text, View, TextInput, Alert, Pressable} from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { StatusBar } from 'expo-status-bar';
-import { useNavigation } from '@react-navigation/native'
 import { auth, firebase } from '../firebase';
 import { LinearGradient } from 'expo-linear-gradient';
 import { RadioButton } from 'react-native-paper';
-import { ScrollView, TouchableOpacity } from 'react-native-web';
 import {Dropdown} from 'react-native-element-dropdown';
 import {Ionicons} from "@expo/vector-icons";
 

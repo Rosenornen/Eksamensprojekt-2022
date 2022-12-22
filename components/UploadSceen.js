@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView, Alert, Image } from 'react-native';
 import React, { useState, } from 'react';
 import * as ImagePicker from "expo-image-picker";
-import { auth, db, firebase } from "../firebase"
+import { firebase } from "../firebase"
 
 
 const UploadScreen = () => {
