@@ -12,8 +12,6 @@ function DirectMessage({}) {
   const [message, setMessage] = useState('');
   const messagesRef = firebase.database().ref(`Messages/${uid}`);
   const [users, setUsers] = useState([]);
-  const [numUsers, setNumUsers] = useState(0);
-  const chatRef = firebase.database().ref(`Chats/${uid}`);
 
 
 
@@ -44,19 +42,6 @@ function DirectMessage({}) {
     messagesRef.on('value', (snapshot) => {
       const messages = snapshot.val();
       setMessages(messages);
-    });
-  }, []);
-
-  useEffect(() => {
-    chatRef.on('value', snapshot => {
-      const chat = snapshot.val();
-      if (chat && chat.numUsers) {
-        setNumUsers(chat.numUsers);
-      } else {
-        // If the chat node or the numUsers property does not exist, initialize them
-        chatRef.set({ numUsers: 0 });
-        setNumUsers(0);
-      }
     });
   }, []);
 
@@ -92,20 +77,9 @@ function DirectMessage({}) {
     setMessages([]);
   
     // Remove the numUsers property from the Chats node in the Realtime Database
-    chatRef.update({ numUsers: null });
-  
-    // Set the numUsers state variable to 0
-    setNumUsers(0);
   }
-  
-  
-  
-  
-  
 
   function handleSendMessage() {
-    if (numUsers < 2) {
-      // If the number of users in the chat is less than 2, proceed with sending the message
       messagesRef.push({
         sender: auth.currentUser?.uid,
         message,
@@ -113,13 +87,6 @@ function DirectMessage({}) {
         recipient: uid
       });
       setMessage('');
-  
-      // Increment the number of users in the chat by 1
-      chatRef.update({ numUsers: numUsers + 1 });
-    } else {
-      // If the number of users in the chat is 2 or more, show an error message or take other appropriate action
-      alert("Chatten er fuld");
-    }
   }
   
 
@@ -149,8 +116,8 @@ function DirectMessage({}) {
         <Button
             title="Slet Chat"
             onPress={handleDeleteChat}
+            style = {styles.sletButton}
         />
-        <Text style={styles.fullName}>Antal bruger i chatten: {numUsers}</Text>
       <TextInput
         style={styles.input}
         value={message}
@@ -179,7 +146,6 @@ const styles = StyleSheet.create({
   },
   message: {
     fontSize: 15,
-    
   },
   input: {
     height: 40,
@@ -187,10 +153,15 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
     borderWidth: 1,
     padding: 10,
+    marginTop: 15,
+    marginBottom: 20
   },
   fullName: {
     fontSize: 15,
     marginBottom: 30
+  },
+  sletButton: {
+    marginBottom: 10
   }
 });
 
