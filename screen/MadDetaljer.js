@@ -5,6 +5,7 @@ import { auth, firebase } from "../firebase"
 import {useEffect, useState} from "react";
 import { LinearGradient } from 'expo-linear-gradient';
 
+// Funktion det at visse specifik data om et madopslag 
 const MadDetaljer = ({route,navigation}) => {
   const [food,setFood] = useState({});
   const [reserved, setReserved] = useState(false);
@@ -51,7 +52,7 @@ const MadDetaljer = ({route,navigation}) => {
 ///SKAL TILFØJES SÅ MAN KAN VÆLGE DET FOOD ID MAN ER INDE
 const toggleReserved = () => {
   if (reserved) {
-    // If already reserved, do nothing
+    // Hvis det er resevered = gør ingenting 
     return ; 
   }
 
@@ -67,7 +68,7 @@ const toggleReserved = () => {
 >No data</Text>;
   }
 
-  // Fetch updated data after update button is clicked
+  // Henter den nye data, efter man har opdateret 
   const refreshData = () => {
     firebase.database().ref(`MadTilAfhentning/${food.id}`).once('value', snapshot => {
       setFood(snapshot.val());
@@ -122,17 +123,15 @@ return (
       placeholder="Indtast nyt afhentningstidspunkt"
     />
     <Button title="Update" onPress={() => {
-      // Perform update operation here
+      // Knap til at opdatere afhentningstidspunkt 
       Alert.alert("Tidspunktet blev opdateret")
       firebase.database().ref(`MadTilAfhentning/${food.id}`).update({
         afhentningstidspunkt: newAfhentningstidspunkt,
-        // Update other properties as needed
       });
-      // Fetch updated data
       refreshData();
     }} />
    <Button title="Delete" onPress={() => {
-      // Display alert before performing delete operation
+      // Hvis en alert, der bekræfter om man vil slette eller ej
       Alert.alert(
         'Slet opslag',
         'Er du sikker på du vil slette opslaget?',
@@ -144,7 +143,7 @@ return (
           {
             text: 'OK',
             onPress: () => {
-              // Perform delete operation here
+              // Slette ens eget madopslag
               firebase.database().ref(`MadTilAfhentning/${food.id}`).remove();
               Alert.alert('Opslaget blev slettet');
               navigation.navigate('BottomStack');
@@ -161,7 +160,7 @@ return (
 );
 }
 
-
+// StyleSheet til MadDetajler.js 
 const styles = StyleSheet.create({
     LinearGradient: {
         flex: 1,

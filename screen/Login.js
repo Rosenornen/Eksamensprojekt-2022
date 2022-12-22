@@ -57,6 +57,8 @@ const Login = ({navigation}) => {
   )
 }
 
+// Styling til Login.js. Der er ikke brugt StyleSheet her, som der er i andre screens, 
+// da den blev lavet før vi blev introduceret til det i undervisningen 
 
 const Container = styled.ScrollView`
 	flex: 1;

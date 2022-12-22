@@ -6,6 +6,50 @@ import Baggrund from "../assets/BaggrundLogin_Register.png"
 import { auth } from '../firebase';
 import { Alert } from 'react-native';
 
+const Register = ({navigation}) => {
+
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [loading, setLoading] = useState(false)
+
+    const handleSignUp = async() => {
+      auth
+      .createUserWithEmailAndPassword(email, password)
+      .then(userCredentials =>{
+       const user = userCredentials.user;
+       Alert.alert('Du har nu oprettet dig')
+       navigation.replace("Login");
+       console.log("Registered følgende bruger: ", user.email)
+      })
+      .catch(error => alert(error.message))
+   }
+
+/* Kunne indsætte Confirm password hvis tid */
+return (
+    <>
+    <StatusBar style ="light"/>
+      <Container>
+       <ImageBackground source={Baggrund} resizeMode="cover">
+            <Overlay>
+              <FormWrapper>
+                <Form>
+                  <SignInText> Opret dig her</SignInText>
+                  <Input placeholder="Indtast din Email" placeholderTextColor="grey" value={email} onChangeText={text => setEmail(text)}/>
+                  <Input placeholder="Indtast dit password" placeholderTextColor="grey" secureTextEntry value={password} onChangeText={text => setPassword(text)}/>
+                  <SubmitForm activeOpacity ={0.5} onPress={handleSignUp} disabled={loading}><ButtonText>{loading? "Loading..." : "Opret dig"}</ButtonText></SubmitForm>
+                  <NewToFoodBeeTextWrapper activeOpacity={0.5} onPress={() => navigation.navigate("Login")}><NewToFoodBee>Allerede medlem? Log ind nu!</NewToFoodBee></NewToFoodBeeTextWrapper>
+
+                </Form>
+              </FormWrapper>
+            </Overlay>
+         </ImageBackground>
+        </Container>
+    </>
+  )
+}
+
+// Styling til Login.js. Der er ikke brugt StyleSheet her, som der er i andre screens, 
+// da den blev lavet før vi blev introduceret til det i undervisningen 
 
 const Container = styled.ScrollView`
 	flex: 1;
@@ -87,49 +131,6 @@ const ImageBackground = styled.ImageBackground`
     flex: 1;
     height: 1000px
 `
-
- 
-const Register = ({navigation}) => {
-
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [loading, setLoading] = useState(false)
-
-    const handleSignUp = async() => {
-      auth
-      .createUserWithEmailAndPassword(email, password)
-      .then(userCredentials =>{
-       const user = userCredentials.user;
-       Alert.alert('Du har nu oprettet dig')
-       navigation.replace("Login");
-       console.log("Registered følgende bruger: ", user.email)
-      })
-      .catch(error => alert(error.message))
-   }
-
-/* Kunne indsætte Confirm password hvis tid */
-return (
-    <>
-    <StatusBar style ="light"/>
-      <Container>
-       <ImageBackground source={Baggrund} resizeMode="cover">
-            <Overlay>
-              <FormWrapper>
-                <Form>
-                  <SignInText> Opret dig her</SignInText>
-                  <Input placeholder="Indtast din Email" placeholderTextColor="grey" value={email} onChangeText={text => setEmail(text)}/>
-                  <Input placeholder="Indtast dit password" placeholderTextColor="grey" secureTextEntry value={password} onChangeText={text => setPassword(text)}/>
-                  <SubmitForm activeOpacity ={0.5} onPress={handleSignUp} disabled={loading}><ButtonText>{loading? "Loading..." : "Opret dig"}</ButtonText></SubmitForm>
-                  <NewToFoodBeeTextWrapper activeOpacity={0.5} onPress={() => navigation.navigate("Login")}><NewToFoodBee>Allerede medlem? Log ind nu!</NewToFoodBee></NewToFoodBeeTextWrapper>
-
-                </Form>
-              </FormWrapper>
-            </Overlay>
-         </ImageBackground>
-        </Container>
-    </>
-  )
-}
 
 // export af filen, så det kan bruges andre steder
 export default Register
