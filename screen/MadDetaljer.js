@@ -20,6 +20,33 @@ const MadDetaljer = ({route,navigation}) => {
       }
   });
 
+  //Følgende kode fungerer i backend, men får vores simulator til at crashe, derfor har vi valgt at undlade den, selvom det i back-enden virker og sætter værdien til false og fjerner ID.
+  {/*
+  const cancelReservation = () => {
+    try {
+      // Update the database to cancel the reservation
+      firebase.database().ref(`MadTilAfhentning/${food.id}`).update({
+        reserved: false, // Set reserved to false
+        userwhoreserved: "" // Set userwhoreserved to an empty string
+      });
+      setReserved(false); // Update the component's reserved state to false
+      Alert.alert(
+        "Du har nu afreserveret madvaren",
+        [{ text: "OK" }]
+      );
+    } catch (error) {
+      // Handle any errors that may occur when updating the database
+      console.error(error);
+      Alert.alert(
+        "Fejl",
+        "Der opstod en fejl ved afreservering af madvaren. Prøv igen.",
+        [{ text: "OK" }]
+      );
+    }
+  }
+
+*/} 
+
 ///SKAL TILFØJES SÅ MAN KAN VÆLGE DET FOOD ID MAN ER INDE
 const toggleReserved = () => {
   if (reserved) {
@@ -77,6 +104,15 @@ return (
   }}
   color={food.reserved ? "red" : "lightgreen"}
 />
+{/* Følgende knap er undladt og refferer til den anden kommentering højere op under cancel.
+{auth.currentUser?.uid === food.userwhoreserved && (
+  <Button
+    title="Aflys reservation"
+    onPress={cancelReservation}
+    color="red"
+  />
+)}
+*/}
 {auth.currentUser?.uid === food.Id_ && (
   <View>
     <TextInput
@@ -123,6 +159,7 @@ return (
   </LinearGradient>
 );
 }
+
 
 const styles = StyleSheet.create({
     LinearGradient: {
