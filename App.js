@@ -1,5 +1,4 @@
-import { setStatusBarBackgroundColor, StatusBar } from 'expo-status-bar';
-import {KeyboardAvoidingView, Platform, Text, View, Image } from 'react-native';
+import {KeyboardAvoidingView, Platform, Image } from 'react-native';
 import {NavigationContainer} from "@react-navigation/native" 
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import Login from "./screen/Login"
@@ -12,7 +11,7 @@ import GivMad from './screen/GivMad';
 import ChatUserOverview from './components/ChatUserOverview';
 import DirectMessage from './components/DirectMessage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import {AntDesign, MaterialIcons, Ionicons, FontAwesome, FontAwesome5} from "@expo/vector-icons";
+import {MaterialIcons, Ionicons, FontAwesome, FontAwesome5} from "@expo/vector-icons";
 import Chat from './screen/Chat';
 import MadDetaljer from './screen/MadDetaljer';
 

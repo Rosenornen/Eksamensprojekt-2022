@@ -32,14 +32,9 @@ const Splash = ({navigation}) => {
   return (
         <>
         <StatusBar style='light'/>
-        <Container />
-
-
-        
+        <Container /> 
         </>
-  )
-    
-        
+  )     
 }
 
 
