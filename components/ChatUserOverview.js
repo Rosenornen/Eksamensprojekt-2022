@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
       fontSize: 20,
     },
     chatHeader: {
-      fontSize: 30
+      fontSize: 40
     },
     chatText: {
       marginTop: 10,

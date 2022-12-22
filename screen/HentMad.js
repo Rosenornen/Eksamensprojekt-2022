@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
         borderRadius: 50
     },
     header: {
-        fontSize: 30,
+        fontSize: 40,
         margin: 20
       },
 });
