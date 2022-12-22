@@ -23,7 +23,7 @@ function ChatUserOverview() {
     <View>
       <View style = {styles.textContainer}>
             <Text style = {styles.chatHeader}>Chat</Text>
-            <Text style = {styles.chatText}>Vælg en chat tilhørende dit boligområde (Max pr. chat: 2)</Text>
+            <Text style = {styles.chatText}>Vælg en chat tilhørende dit boligområde</Text>
       </View>
      <View style={styles.container}>
       <FlatList
