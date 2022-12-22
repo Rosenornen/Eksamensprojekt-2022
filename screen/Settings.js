@@ -8,15 +8,18 @@ import { RadioButton } from 'react-native-paper';
 import {Dropdown} from 'react-native-element-dropdown';
 import {Ionicons} from "@expo/vector-icons";
 
-
+// Forksellige boliger, der bruges i en dropdown menu længere nede 
 const data = [
   { label: 'Kollegiet Egmont', value: '1' },
   { label: 'Tietgen', value: '2' },
   { label: 'Ejerforening EHV 17-29', value: '3' },
   { label: 'Stålkollegiet', value: '4' },
 ];
+
+// Alt funktionalitet i settings 
 function Settings({navigation, route}) {
 
+// Log ud funktion 
   const handleSignOut = () => {
     auth
         .signOut()
@@ -26,43 +29,20 @@ function Settings({navigation, route}) {
         .catch(error => alert(error.message))
 }
 
-  const initialState = {
-    Id_: auth.currentUser?.uid,
-    email: auth.currentUser?.email,
-    homegroup: '',
-    home: '',
-    fullName: ''
-  }
-
-  const [newUser, setNewUser] = useState(initialState);
-  const isEditUser = route.name === "Edit User";
-
-
-  useEffect(() => {
-    if(isEditUser){
-        const user = route.params.user[1];
-        setNewUser(user)
-    }
-    /*Fjern data, når vi går væk fra screenen*/
-    return () => {
-        setNewUser(initialState)
-    };
-}, []);
-
-
   const [fullName, setFullName] = useState('');
   const [home, setHome] = useState('');
   const [homegroup, setHomegroup] = useState('');
   const email = auth.currentUser?.email;
   const Id_ = auth.currentUser?.uid;
 
+  // Funktion til at oprette mere data om ens profil
   function uploadData() {
     if (!home || !fullName || !homegroup || !email || !Id_) {
-      // Display an error if the text or image is not set
+      // Error Alert, hvis der mangler data 
       return Alert.alert('Alle Felter skal udfyldes');
     }
 
-    // Write the data to the Firebase Realtime Database
+    // Indsætter data i Firebase Realtime Database
     firebase.database().ref('/User/' + auth.currentUser?.uid).set({
       home,
       fullName,
@@ -70,7 +50,7 @@ function Settings({navigation, route}) {
       email,
       Id_
     });
-    Alert.alert(`Saved`);;
+    Alert.alert(`Gemt`);;
     setFullName('')
     setHome('')
     setHomegroup('')
@@ -79,7 +59,7 @@ function Settings({navigation, route}) {
 
   const [checked, setChecked] = React.useState('true');
   
-  /* Liiidt for simple logud, men det var nødvendigt for at teste */
+  // Alt indhold vist i appen fra Settings.js
     return (
       <>
       <StatusBar style ="light"/>
@@ -156,6 +136,7 @@ function Settings({navigation, route}) {
     )
   }
 
+// StyleSheet til Settings.js
 const styles = StyleSheet.create({
   LinearGradient: {
     flex: 1,

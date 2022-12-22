@@ -11,13 +11,13 @@ const Container = styled.View`
         align-items: center
 `
 
-//If user is logged in, homescreen, if not login screen
+// Hvis bruger er logget ind = vis Home Screen
+// Hvis bruger ikke er logget ind = vis Login Screen
 const Splash = ({navigation}) => {
       
     useEffect(() => {
       const unsubscribe = auth.onAuthStateChanged((authUser) => {
         if(authUser) {
-          /* Er ændret fra Register til BottomStack tester */
           navigation.replace("BottomStack")
         } else { 
           navigation.replace("Login")
