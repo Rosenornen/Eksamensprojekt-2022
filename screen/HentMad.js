@@ -42,7 +42,7 @@ const MadListe = ({navigation}) => {
         end={{ x: 1, y: 1 }}>
   
         <View style = {styles.container}>
-          <Text></Text>
+          <Text style = {styles.header}>Hent Mad</Text>
            <FlatList
             data={foodArray}
             // Vi bruger FoodKeys til at finde ID på det aktuelle food og returnerer dette som key, og giver det med som ID til FoodListItem
@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
   },
     container: {
       justifyContent: 'center',
+      alignItems: 'center',
       marginTop: 120,
       padding: 5
     },
@@ -113,6 +114,9 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: "70%",
         borderRadius: 50
-        
-    }
+    },
+    header: {
+        fontSize: 30,
+        margin: 20
+      },
 });
