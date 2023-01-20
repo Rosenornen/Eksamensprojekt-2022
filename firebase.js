@@ -6,13 +6,14 @@ import 'firebase/storage';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBo9r87W770d8WbEN8FwMaGORunnMe9mzw",
-  authDomain: "fir-auth-ecfa6.firebaseapp.com",
-  databaseURL: "https://fir-auth-ecfa6-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "fir-auth-ecfa6",
-  storageBucket: "fir-auth-ecfa6.appspot.com",
-  messagingSenderId: "322810923339",
-  appId: "1:322810923339:web:33a4702bedd7f45cb980ce"
+  apiKey: "AIzaSyBnblA0xeP2VdHZk9gthPhmISj-OuCWPEU",
+  authDomain: "foodbee-v2.firebaseapp.com",
+  databaseURL: "https://foodbee-v2-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "foodbee-v2",
+  storageBucket: "foodbee-v2.appspot.com",
+  messagingSenderId: "535982426900",
+  appId: "1:535982426900:web:ed81da24f44fdc8570d001",
+  measurementId: "G-L7C72756PH"
 };
 
 // Initialize Firebase
